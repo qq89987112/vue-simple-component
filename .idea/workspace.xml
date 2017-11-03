@@ -2,28 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5048b32-c9b3-4e0f-8a73-02d67559db4a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/css/reset.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/panel.vue" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/simple-component/area-selector/addr.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/simple-component/area-selector/area-selector.vue" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/simple-component/calendar/calendar.vue" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/simple-component/calendar/zh-cn.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/simple-component/city-selector/addr.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/simple-component/city-selector/city-selector.vue" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/simple-component/image/dialog.vue" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/simple-component/image/dialogWrapper.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/simple-component/image/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/simple-component/loading/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/simple-component/loading/loading.vue" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/simple-component/local-observation.vue" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/simple-component/rate.vue" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/simple-component/toast/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/simple-component/toast/toast.vue" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/simple-component/toast/wrapper.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/simple-component/wrapper/toggle-panel.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/simple-component/loading/README.MD" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readme.md" afterPath="$PROJECT_DIR$/readme.md" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -37,12 +18,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="readme.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="readme.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/readme.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="0">
-                <caret line="0" column="19" lean-forward="false" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
+              <first_editor relative-caret-position="57">
+                <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -50,12 +31,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="App.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="App.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/App.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="380">
               <caret line="20" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.MD" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/simple-component/loading/README.MD">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="665">
+                <caret line="35" column="3" lean-forward="true" selection-start-line="35" selection-start-column="3" selection-end-line="35" selection-end-column="3" />
+                <folding />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -89,7 +83,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/readme.md" />
         <option value="$PROJECT_DIR$/src/assets/index.js" />
         <option value="$PROJECT_DIR$/src/main.js" />
         <option value="$PROJECT_DIR$/src/components/toggle-panel/toggle-panel.vue" />
@@ -98,6 +91,8 @@
         <option value="$PROJECT_DIR$/src/components/panel.vue" />
         <option value="$PROJECT_DIR$/src/components/simple-component/wrapper/toggle-panel.vue" />
         <option value="$PROJECT_DIR$/src/App.vue" />
+        <option value="$PROJECT_DIR$/src/components/simple-component/loading/README.MD" />
+        <option value="$PROJECT_DIR$/readme.md" />
       </list>
     </option>
   </component>
@@ -153,14 +148,22 @@
               <item name="vue-simple-component" type="b2602c69:ProjectViewProjectNode" />
               <item name="vue-simple-component" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="vue-simple-component" type="b2602c69:ProjectViewProjectNode" />
               <item name="vue-simple-component" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="simple-component" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-simple-component" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-simple-component" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="simple-component" type="462c0819:PsiDirectoryNode" />
+              <item name="loading" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -182,6 +185,7 @@
       <recent name="F:\crg\posun\project\project\github\vue-simple-component\src\assets\css" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\crg\posun\project\project\github\vue-simple-component\src\components\simple-component\loading" />
       <recent name="F:\crg\posun\project\project\github\vue-simple-component\src\assets" />
       <recent name="F:\crg\posun\project\project\github\vue-simple-component\src\components" />
     </key>
@@ -209,12 +213,12 @@
       <option name="presentableId" value="Default" />
       <updated>1509677449641</updated>
       <workItem from="1509677490617" duration="968000" />
-      <workItem from="1509678622185" duration="2431000" />
+      <workItem from="1509678622185" duration="2730000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3399000" />
+    <option name="totallyTimeSpent" value="3698000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -272,17 +276,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/readme.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="19" lean-forward="false" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
-            <folding />
-          </first_editor>
-          <second_editor />
         </state>
       </provider>
     </entry>
@@ -353,11 +346,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/simple-component/loading/README.MD">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="665">
+            <caret line="35" column="3" lean-forward="true" selection-start-line="35" selection-start-column="3" selection-end-line="35" selection-end-column="3" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/App.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="20" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/readme.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="57">
+            <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
