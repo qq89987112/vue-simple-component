@@ -1,5 +1,5 @@
 <template>
-  <div class="loader-box" :style="[loading&&{height:height&&height+'px'}]">
+  <div class="loader-box" :style="[loading&&{height:height&&height+'px'}]" :class="{loading:loading}">
     <div class="loader" :class="[type||'loader1',{mask:showType=='mask'}]" v-if="loading">
       <div ref="loading"></div>
       <div ref="loading"></div>
