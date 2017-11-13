@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b5048b32-c9b3-4e0f-8a73-02d67559db4a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/plugins/validator/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readme.md" afterPath="$PROJECT_DIR$/readme.md" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/components/simple-component/loading/README.MD" afterPath="$PROJECT_DIR$/src/components/plugins/loading/README.MD" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/components/simple-component/loading/index.js" afterPath="$PROJECT_DIR$/src/components/plugins/loading/index.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/components/simple-component/loading/loading.vue" afterPath="$PROJECT_DIR$/src/components/plugins/loading/loading.vue" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/components/simple-component/toast/index.js" afterPath="$PROJECT_DIR$/src/components/plugins/toast/index.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/components/simple-component/toast/toast.vue" afterPath="$PROJECT_DIR$/src/components/plugins/toast/toast.vue" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/components/simple-component/toast/wrapper.js" afterPath="$PROJECT_DIR$/src/components/plugins/toast/wrapper.js" />
-    </list>
+    <list default="true" id="b5048b32-c9b3-4e0f-8a73-02d67559db4a" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -205,12 +195,12 @@
       <updated>1509677449641</updated>
       <workItem from="1509677490617" duration="968000" />
       <workItem from="1509678622185" duration="3991000" />
-      <workItem from="1510539164188" duration="2600000" />
+      <workItem from="1510539164188" duration="2878000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7559000" />
+    <option name="totallyTimeSpent" value="7837000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="179" y="30" width="1003" height="967" extended-state="0" />
