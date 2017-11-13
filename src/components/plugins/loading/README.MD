@@ -1,3 +1,8 @@
+# idea
+    如果是mask模式的Loading,可以源码这么实现：
+    在loading组件中再放一个loading,用于maskType时使用。
+    <loading ref="load-bottom" class="load-bottom"></loading>
+
 # npm
 
 # use
