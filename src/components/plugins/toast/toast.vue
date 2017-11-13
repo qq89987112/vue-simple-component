@@ -5,7 +5,7 @@
 </template>
 <script>
     export default {
-        name: 'loading',
+        name: 'toast',
         props:{
           position:{
             default:'bottom'

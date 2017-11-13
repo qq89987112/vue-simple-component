@@ -1,11 +1,14 @@
 <template>
   <div id="app">
-    <router-view/>
+   <h1>简单组件</h1>
+    <h2>toggle-panel <span class="button toggle" @click="onToggleClick">toggle</span></h2>
+    <p>结果：{{togglePanelResult}}</p>
+    <panel ref="panel"></panel>
   </div>
 </template>
 
 <script>
-import panel from "./components/panel.vue"
+import panel from "../components/panel.vue"
 
 export default {
   name: 'app',
@@ -31,11 +34,5 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-#app {
-  text-align: center;
-  .button{
-    padding:5px 10px;
-    background-color: #4591d4;
-  }
-}
+
 </style>

@@ -1,0 +1,11 @@
+
+.empty {
+  &:empty {
+    height: 25px;
+    border: 1px solid #ddd;
+    background: #eee;
+    &::before {
+      content: attr(empty-text);
+    }
+  }
+}

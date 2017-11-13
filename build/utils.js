@@ -20,10 +20,17 @@ exports.cssLoaders = function (options) {
       sourceMap: options.sourceMap
     }
   }
-
+  const sassResourcesLoader = {
+    loader: 'sass-resources-loader',
+    options: {
+      // it need a absolute path
+      resources: [path.resolve(__dirname, '../src/assets/css/sass-resource.scss')]
+    }
+  }
   // generate loader string to be used with extract text plugin
   function generateLoaders (loader, loaderOptions) {
-    const loaders = [cssLoader]
+    const loaders = [cssLoader,"sass-loader",sassResourcesLoader]
+
     if (loader) {
       loaders.push({
         loader: loader + '-loader',

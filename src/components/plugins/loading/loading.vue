@@ -1,63 +1,128 @@
 <template>
-  <div class="loader-box" :style="[loading&&{height:height&&height+'px'}]" :class="{loading:loading}">
-    <div class="loader" :class="[type||'loader1',{mask:showType=='mask'}]" v-if="loading">
-      <div ref="loading"></div>
-      <div ref="loading"></div>
-      <div ref="loading"></div>
-    </div>
-    <!--故意留一下isLoading方便程序猿控制样式-->
-    <!--无法控制孩子渲染.该undefined的还是会undefined 测试时是作为根节点-->
-    <div  v-if="!loading || showType=='mask'" :class="{'is-loading':loading}">
+  <div class="loader-box" :class="{loading:loading,loadMore:types.loadMore}" @wheel="onLikeScroll" @touchmove="onLikeScroll" @scroll="onScroll">
+    <template v-if="types.mask">
+      <loading :loader="loader" :wait="wait" v-show="loading" class="mask-loading" ref="loading"></loading>
       <slot>
 
       </slot>
-    </div>
+    </template>
+    <template v-else>
+      <div class="loader" :class="[loader]" v-show="loading">
+        <div ref="loading"></div>
+        <div ref="loading"></div>
+        <div ref="loading"></div>
+      </div>
+      <slot v-if="!loading">
+
+      </slot>
+    </template>
   </div>
 </template>
 <script>
   export default {
     name: 'loading',
-    props:['height','wait','type','showType',"scale"],
-    data(){
+    props: {
+      'wait': undefined,
+      'loader': {
+        default: 'loader1'
+      },
+      'mask': undefined,
+      'loadMore': undefined,
+    },
+    data() {
+      this.types = {
+        mask: this.mask !== undefined || this.loadMore !== undefined,
+        loadMore: this.loadMore !== undefined
+      };
+
       return {
-        loading:true
+        loading: true,
+//        load-more
+        page:1,
+        rows:10,
       }
     },
-    methods:{
-      cancel(){
+    methods: {
+      onLikeScroll(e){
+        if(this.loading){
+          e.stopPropagation();
+          e.preventDefault();
+        }
+      },
+//      load-more begin
+      onScroll(e){
+        if(this.types.loadMore){
+          let srcEle = e.srcElement;
+          if (srcEle.scrollHeight === srcEle.scrollTop + srcEle.offsetHeight && !this.loadMore) {
+            this.do();
+            this.$emit("loadPage",++this.page,this.rows);
+          }
+        }
+      },
+//      load-more end
+      cancel() {
+        if (this.types.mask) {
+          this.$refs.loading.cancel();
+        }
         this.loading = false;
+
       },
-      do(){
+      do() {
+        if (this.types.mask) {
+          this.$refs.loading.do();
+        }
         this.loading = true;
+
       },
-      isLoading(){
+      isLoading() {
         return this.loading;
       }
     },
-    created(){
+    created() {
       if (this.wait !== null && this.wait !== undefined) {
         this.loading = false;
       }
     },
-    mounted(){
-      console.log(this.$refs.loading);
+    mounted() {
     }
   }
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>
-  .loader-box{
+  .loader-box {
     position: relative;
     height: 100%;
+
+    &.load-more{
+      overflow-y: auto;
+    }
+
+    &.loading {
+      .mask-loading {
+        display: block;
+      }
+    }
+    .mask-loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: white;
+      opacity: 0.5;
+      z-index: 2;
+      display: none;
+    }
+
     .loader {
-      display: -webkit-flex;/*safari弹性布局*/
+      display: -webkit-flex; /*safari弹性布局*/
       justify-content: center;
       display: flex;
       align-items: center;
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%,-50%);
-      div{
+      transform: translate(-50%, -50%);
+      div {
         background-color: #526d85 !important;
       }
     }
@@ -76,8 +141,8 @@
       }
     }
     .loader1 div {
-      width: R(15) !important;
-      height: R(15) !important;
+      width: R(45) !important;
+      height: R(45) !important;
 
       border-radius: 50%;
       float: left;
@@ -94,15 +159,37 @@
       -webkit-animation: loader1 0.75s 0s ease infinite;
     }
 
-    @-webkit-keyframes loader31{
-      0%{-webkit-transform:scale(1);opacity:0.5;}
-      50%{-webkit-transform:scale(0);opacity:1;}
-      100%{-webkit-transform:scale(1);opacity:0.5;}
+    @-webkit-keyframes loader31 {
+      0% {
+        -webkit-transform: scale(1);
+        opacity: 0.5;
+      }
+      50% {
+        -webkit-transform: scale(0);
+        opacity: 1;
+      }
+      100% {
+        -webkit-transform: scale(1);
+        opacity: 0.5;
+      }
     }
-    .loader-31{position:relative;}
-    .loader-31 div{width:R(15) !important;height:R(15) !important;border-radius:50%;position:absolute;background:#fff;opacity:0.5;}
-    .loader-31 div:nth-child(1){-webkit-animation:loader31 2s 0s infinite ease-in-out;}
-    .loader-31 div:nth-child(2){-webkit-animation:loader31 2s -1s infinite ease-in-out;}
+    .loader2 {
+      position: relative;
+    }
+    .loader2 div {
+      width: R(45) !important;
+      height: R(45) !important;
+      border-radius: 50%;
+      position: absolute;
+      background: #fff;
+      opacity: 0.5;
+    }
+    .loader2 div:nth-child(1) {
+      -webkit-animation: loader31 2s 0s infinite ease-in-out;
+    }
+    .loader2 div:nth-child(2) {
+      -webkit-animation: loader31 2s -1s infinite ease-in-out;
+    }
   }
 
 

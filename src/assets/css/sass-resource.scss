@@ -1,0 +1,7 @@
+// webstorm R($VAR$);$END$
+//
+//
+
+@function R($num) {
+  @return $num / 37.5 * 1rem;
+}
