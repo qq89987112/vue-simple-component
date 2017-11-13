@@ -1,7 +1,18 @@
 # idea
-    如果是mask模式的Loading,可以源码这么实现：
+## mask模式
     在loading组件中再放一个loading,用于maskType时使用。
     <loading ref="load-bottom" class="load-bottom"></loading>
+
+## load-more 模式
+    因为load-more肯定需要loading mask,与其嵌套两层
+    
+    <loading>
+      <load-more></load-more>
+    </loading>
+    
+     不如整到一起
+     <loading load-more>
+     </loading>
 
 # npm
 
