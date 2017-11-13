@@ -1,0 +1,37 @@
+<template>
+    <div>
+      <input type="text" v-model="phone">
+      <input type="text" v-model="password">
+      <button @click="register">注册</button>
+    </div>
+</template>
+<script>
+    import regExp from "../components/plugins/validator/regExp"
+    export default {
+        name: 'register-page',
+        data() {
+            return {
+              phone:'',
+              password:''
+            }
+        },
+        methods: {
+          register(){
+            this.$validate({
+              [`${regExp.phoneReg}|phone`]:'手机格式错误',
+              [`${regExp.password}|password`]:'密码格式错误'
+            }).then(()=>{
+              console.log("没毛病");
+            }).catch((data)=>{
+              console.log(data.msg);
+            })
+          }
+        },
+        created() {
+
+        }
+    }
+</script>
+<style lang="scss" rel="stylesheet/scss" scoped>
+
+</style>
