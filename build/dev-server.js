@@ -47,14 +47,43 @@ const hotMiddleware = require('webpack-hot-middleware')(compiler, {
 // compilation error display
 app.use(hotMiddleware)
 
+let apiCache = require("./api-cache.json");
 // proxy api requests
 Object.keys(proxyTable).forEach(function (context) {
   let options = proxyTable[context]
   if (typeof options === 'string') {
-    options = { target: options }
+    options = {target: options}
   }
+
+  // 生成的cache 可以供mockjs 使用(直接遍历即可)。
+  // let apiCache = require("./api-cache.json");
+  app.get("/api-cache", function (req, res) {
+    res.write(JSON.stringify(apiCache));
+    res.end();
+  });
+  options.onProxyRes = function (proxyRes, req, res) {
+    res.on('pipe', (data) => {
+      let
+        fs = require("fs"),
+        concat = require('concat-stream'),
+        zlib = require('zlib'),
+        gzipStream = zlib.createGunzip(),
+        gziped = proxyRes.pipe(gzipStream),
+
+        s = concat(function (text) {
+          apiCache[req.url] = JSON.parse(text.toString());
+          fs.writeFileSync(path.join(__dirname, "./api-cache.json"), JSON.stringify(apiCache), 'UTF-8');
+          gziped.unpipe(s);
+          proxyRes.unpipe(gzipStream);
+        });
+        gziped.pipe(s);
+    })
+  };
+
+
   app.use(proxyMiddleware(options.filter || context, options))
 })
+
 
 // handle fallback for HTML5 history API
 app.use(require('connect-history-api-fallback')())
