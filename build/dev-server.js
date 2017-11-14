@@ -66,17 +66,17 @@ Object.keys(proxyTable).forEach(function (context) {
       let
         fs = require("fs"),
         concat = require('concat-stream'),
-        zlib = require('zlib'),
-        gzipStream = zlib.createGunzip(),
-        gziped = proxyRes.pipe(gzipStream),
-
         s = concat(function (text) {
           apiCache[req.url] = JSON.parse(text.toString());
           fs.writeFileSync(path.join(__dirname, "./api-cache.json"), JSON.stringify(apiCache), 'UTF-8');
-          gziped.unpipe(s);
-          proxyRes.unpipe(gzipStream);
         });
-        gziped.pipe(s);
+      if (~proxyRes.headers['content-encoding'].indexOf('gzip')) {
+        let
+          zlib = require('zlib');
+          proxyRes.pipe(zlib.createGunzip()).pipe(s);
+      } else {
+          proxyRes.pipe(s);
+      }
     })
   };
 
