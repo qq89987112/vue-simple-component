@@ -43,9 +43,9 @@ export default {
       return $ref&&$ref.isLoading();
     };
 
-    Vue.prototype.$loadingEx = function(ref,index){
+    Vue.prototype.$loadEx = function(ref,index){
       return ()=> {
-        this.$load(ref,index);
+        return this.$load(ref,index);
       }
     };
 
@@ -53,7 +53,8 @@ export default {
       this.$nextTick(()=>{
           let $ref = check.bind(this)(ref,index);
           $ref&&$ref.do();
-        })
+      })
+      return this.$cancelEx(ref,index)
     }
 
   }

@@ -32,15 +32,14 @@
         },
         methods: {
           onLoadClick(ref){
-            this.$load(ref);
+            let cancel = this.$load(ref);
             setTimeout(()=>
             {
-              this.$cancel(ref);
+              cancel();
             },3000)
           },
           onLoad(page,rows){
             console.log(page, rows);
-
             setTimeout(()=>
             {
               this.$cancel("loading2");
