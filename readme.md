@@ -12,5 +12,7 @@
 
 ## 多行省略
     scrollHeight>offsetHeight + css max-height 做多行省略
+    
+## empty选择器 做空界面
   
   
