@@ -46,12 +46,19 @@
     },
     destroyed() {
       window.removeEventListener("click", this.__outclick__)
+      window.removeEventListener("resize", this.__resize__)
     },
     mounted() {
-      let $el = this.$el;
-      let computedStyle = getComputedStyle($el.parentElement);
-      $el.style.width = computedStyle.width;
-      $el.style.height = computedStyle.height;
+      let self = this;
+      this.__resize__ = function () {
+        let $el = self.$el;
+        let computedStyle = getComputedStyle($el.parentElement);
+        $el.style.width = computedStyle.width;
+        $el.style.height = computedStyle.height;
+      };
+      window.addEventListener("resize", this.__resize__)
+      this.__resize__();
+
 
 //          let context = this.content = this.$slots.content[0].context;
 //          context.$on('showDialog',(ref)=>{
@@ -66,6 +73,7 @@
     position: relative;
     z-index: 999;
     background-color: rgba(0, 0, 0, 0.5);
+
     .content {
       position: absolute;
       top: 50%;
