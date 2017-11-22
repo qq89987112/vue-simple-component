@@ -22,6 +22,7 @@
       },
       closeDialog() {
         this.isShow = false;
+        this.$emit("close");
       },
       showDialogForResult() {
         this.showDialog();
