@@ -15,4 +15,4 @@
     
 ## empty选择器 做空界面
   
-  
+## 如果img非透明图或无透明部分，则可以使用 background+loading gif 来做。 
