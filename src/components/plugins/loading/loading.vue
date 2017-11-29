@@ -3,7 +3,6 @@
     <template v-if="types.mask">
       <loading :loader="loader" :wait="wait" v-show="loading" class="mask-loading" ref="loading"></loading>
       <slot>
-
       </slot>
     </template>
     <template v-else>
@@ -13,7 +12,6 @@
         <div ref="loading"></div>
       </div>
       <slot v-if="!loading">
-
       </slot>
     </template>
   </div>
