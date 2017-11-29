@@ -15,7 +15,9 @@ let router = new Router({
       path: '/',
       name: 'list',
       component: list
-    }, {
+    },
+    {
+      //这里头包含了button
       path: '/calendar',
       name: 'calendar',
       component: calendar
@@ -26,6 +28,7 @@ let router = new Router({
       component: panel
     },
     {
+      //这里头包含了loading
       path: '/dialog',
       name: 'dialog',
       component: dialog
