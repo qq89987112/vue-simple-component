@@ -25,23 +25,29 @@ function check(ref,index) {
 
 export default {
   install(Vue, options){
-
+    function getInstance() {
+      if(!this.__has_toast__){
+        let toastWrapper = new Vue(wrapper).$mount();
+        this.__has_toast__ = true;
+        this.__toastWrapper__ = toastWrapper;
+        this.$el.appendChild(toastWrapper.$el);
+      }
+      return this.__toastWrapper__.$refs.toast;
+    }
     Vue.prototype.$toastError = function (content,ref) {
-      this.$toast(content,ref);
+      let toast = getInstance.bind(this)();
+      toast.showOnce("error",content);
     };
 
     Vue.prototype.$toastErrorEx = function (content,ref) {
-      return this.$toastEx(content,ref);
+      return (res)=>{
+        let _content = content || res&&res.msg  || res&&res.data&&res.data.msg;
+        this.$toastError(_content,ref);
+      }
     };
 
       Vue.prototype.$toast = function(content,ref){
-        if(!this.__has_toast__){
-          let toastWrapper = new Vue(wrapper).$mount();
-          this.__has_toast__ = true;
-          this.__toastWrapper__ = toastWrapper;
-          this.$el.appendChild(toastWrapper.$el);
-        }
-        let toast = this.__toastWrapper__.$refs.toast;
+        let toast = getInstance.bind(this)();
         toast.show(content);
     };
 

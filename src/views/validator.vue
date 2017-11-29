@@ -22,12 +22,9 @@
               [`${regExp.phoneReg}|phone`]:'手机格式错误',
               [`${regExp.password}|password`]:'密码格式错误'
             }).then(()=>{
-              console.log("没毛病");
-              return axios.get("/v2/loc/list");
-            }).then((data)=>{
-              console.log(data);
+              this.$toast("没毛病");
             }).catch((data)=>{
-              console.log(data.msg);
+              this.$toastError(data.msg);
             })
           }
         },

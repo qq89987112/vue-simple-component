@@ -1,7 +1,6 @@
 export default {
   install(Vue) {
     Vue.prototype.$validate = function (options) {
-      // 正则代码 摘自本人另一个开源代码  https://github.com/qq89987112/RegExtractor
       let
         regExp = /\/(.+)\/([^\|]+)?(?:\|(.+))?/,
         regStr,

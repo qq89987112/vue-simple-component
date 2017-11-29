@@ -2,6 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import loading from "./loading.vue"
 import panel from "./panel.vue"
+import dialog from "./dialog.vue"
+import list from "./list.vue"
+import calendar from "./calendar.vue"
 import validator from "./validator.vue"
 
 Vue.use(Router);
@@ -9,19 +12,33 @@ Vue.use(Router);
 let router = new Router({
   routes: [
     {
-      path:'/',
+      path: '/',
+      name: 'list',
+      component: list
+    }, {
+      path: '/calendar',
+      name: 'calendar',
+      component: calendar
+    },
+    {
+      path: '/panel',
       name: 'panel',
-      component:panel
+      component: panel
     },
     {
-      path:'/loading',
+      path: '/dialog',
+      name: 'dialog',
+      component: dialog
+    },
+    {
+      path: '/loading',
       name: 'loading',
-      component:loading
+      component: loading
     },
     {
-      path:'/validator',
+      path: '/validator',
       name: 'validator',
-      component:validator
+      component: validator
     }
   ]
 });

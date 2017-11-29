@@ -1,5 +1,5 @@
 <template>
-  <toggle-panel class="calendar-components" ref="toggle"  v-on="$listeners">
+  <div class="calendar-components">
     <p class="top-bar">
       <span class="left" @click="onLastMonthClick" :class="{invalid:isHead}"><i class="iconfont icon-i-left"></i>前一个月</span>
       <span class="center">{{title}}</span>
@@ -12,20 +12,21 @@
         <span class="day" v-for="item in days" :class="{invalid:isInvalid(item),active:item===activeItem}" @click="onDayClick(item)">{{item}}</span>
       </p>
     </div>
-    <m-button bottom @click.native="$refs.toggle.hide()">选好了</m-button>
-  </toggle-panel>
+    <m-button bottom @click.native="onResultClick">选好了</m-button>
+  </div>
 </template>
 
 <script>
   import moment from "moment"
   import "./zh-cn"
-  import togglePanel from "../toggle-panel.vue"
+  import MButton from "../button.vue";
 
   export default {
-    name: 'calendar',
+    name: 'm-calendar',
     props:["value"],
     data(){
       this.moment = moment(this.value||undefined);
+      this.result = this.moment.format("YYYY-MM-DD");
       return {
         days:[],
         title:'',
@@ -35,12 +36,9 @@
       }
     },
     components:{
-      togglePanel
+      MButton
     },
     created() {
-//      let moment2 = moment();
-//      console.log(moment2.daysInMonth());
-//      console.log(moment2.subtract(1,"month").date(1).day());
       this.show(this.moment);
     },
     methods:{
@@ -49,8 +47,12 @@
           this.activeItem = item;
           let clone = moment(this.moment);
           clone.date(item);
-          this.$emit("input",clone.format("YYYY-MM-DD"));
+          this.result = clone.format("YYYY-MM-DD");
+          this.$emit("input",this.result);
         }
+      },
+      onResultClick(){
+        this.$emit("result",this.result);
       },
       isInvalid(item){
         if(item){
@@ -96,7 +98,6 @@
         for(let i=0;i<=7-footer;i++){
           arr.push("");
         }
-        console.log(arr);
         this.days = arr;
         this.title=momentArg.format("YYYY年MM月");
         this.today = +momentArg.date();
