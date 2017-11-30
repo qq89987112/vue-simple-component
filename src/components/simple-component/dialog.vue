@@ -1,6 +1,6 @@
 <template>
-  <div class="dialog-component" :class="[type]" v-show="isShow">
-    <div class="content" @click.prevent.stop="">
+  <div class="dialog-component" :class="[type,isShow&&'active']" v-show="isShow">
+    <div class="content" @click.prevent.stop="" :class="[isShow&&'active']">
       <slot :flag="flag"></slot>
     </div>
   </div>
@@ -69,6 +69,7 @@
     z-index: 999;
     background-color: rgba(0, 0, 0, 0.5);
 
+
     &.full-screen{
       .content{
         width: 100%;
@@ -80,8 +81,10 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
       background-color: #fff;
+
+      transform: translate(-50%, -50%);
+
     }
   }
 </style>
