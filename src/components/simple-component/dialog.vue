@@ -8,13 +8,13 @@
 <script>
   export default {
     name: 'm-dialog',
-    props:['type'],
+    props: ['type'],
     data() {
       // full-screen
-      Object.assign(this,([].concat(this.type||[])).reduce((prev,item)=>{
+      Object.assign(this, ([].concat(this.type || [])).reduce((prev, item) => {
         prev[item] = true;
         return prev;
-      },{}));
+      }, {}));
       return {
         isShow: false,
         flag: undefined,
@@ -50,13 +50,19 @@
         this.isShow = false;
         this.$emit("close");
       },
+      //当slot内容抽象成组件时,方便 @result="dialog.onResult"
+      onResult(data) {
+        this._onResult(data);
+      },
       showDialogForResult() {
         this.showDialog();
         return new Promise((resolve, rejct) => {
-          this.$once("result", (data) => {
+          this._onResult = (data) => {
             this.closeDialog();
             resolve(data);
-          })
+            this._onResult = () => {};
+          };
+          this.$once("result", this._onResult)
         });
       },
       setFlag(flag) {
@@ -71,8 +77,8 @@
         }
       };
 
-      this.__before_leave__ = function (to,from,next) {
-        if(self.isShow){
+      this.__before_leave__ = function (to, from, next) {
+        if (self.isShow) {
           self.closeDialog();
           next(false);
           return;
@@ -86,7 +92,7 @@
     destroyed() {
       window.removeEventListener("click", this.__outclick__)
       let beforeHooks = this.$router.beforeHooks;
-      beforeHooks.splice(beforeHooks.findIndex((item)=>item===this.__before_leave__),1);
+      beforeHooks.splice(beforeHooks.findIndex((item) => item === this.__before_leave__), 1);
     },
     mounted() {
 
@@ -104,9 +110,8 @@
     z-index: 999;
     background-color: rgba(0, 0, 0, 0.5);
 
-
-    &.full-screen{
-      .content{
+    &.full-screen {
+      .content {
         width: 100%;
         height: 100%;
       }
