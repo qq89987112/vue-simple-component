@@ -1,5 +1,5 @@
 <template>
-  <div class="dialog-component" :class="[type,isShow&&'active']" v-show="isShow">
+  <div class="dialog-component" :class="[mType,isShow&&'active'].concat(type)" v-show="isShow" @scroll="onScroll">
     <div class="content" @click.prevent.stop="" :class="[isShow&&'active']">
       <slot :flag="flag"></slot>
     </div>
@@ -8,17 +8,23 @@
 <script>
   export default {
     name: 'm-dialog',
+    props:['type'],
     data() {
+      // full-screen
+      Object.assign(this,([].concat(this.type||[])).reduce((prev,item)=>{
+        prev[item] = true;
+        return prev;
+      },{}));
       return {
         isShow: false,
         flag: undefined,
-        type: ''
+        mType: ''
       }
     },
     methods: {
       onScroll(e) {
         let srcEle = e.srcElement;
-        if (srcEle.scrollTop + srcEle.offsetHeight === srcEle.scrollHeight) {
+        if (srcEle.scrollTop + srcEle.offsetHeight === srcEle.scrollHeight && this['full-screen']) {
           e.preventDefault();
           e.stopPropagation();
         }
@@ -26,14 +32,14 @@
       onBack() {
 //           return true 代表消耗掉这次的back
 //           return false 代表无作为
-        if (this.isShow()) {
-          this.hide();
+        if (this.isShow) {
+          this.closeDialog();
           return true;
         }
         return false;
       },
       setType(type) {
-        this.type = type;
+        this.mType = type;
       },
       showDialog() {
         setTimeout(() => {
@@ -64,10 +70,23 @@
           self.closeDialog();
         }
       };
-      window.addEventListener("click", this.__outclick__)
+
+      this.__before_leave__ = function (to,from,next) {
+        if(self.isShow){
+          self.closeDialog();
+          next(false);
+          return;
+        }
+        next(true);
+      };
+
+      window.addEventListener("click", this.__outclick__);
+      this.$router.beforeHooks.push(this.__before_leave__);
     },
     destroyed() {
       window.removeEventListener("click", this.__outclick__)
+      let beforeHooks = this.$router.beforeHooks;
+      beforeHooks.splice(beforeHooks.findIndex((item)=>item===this.__before_leave__),1);
     },
     mounted() {
 
