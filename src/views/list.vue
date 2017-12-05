@@ -5,6 +5,7 @@
         <router-link to="loading">loading</router-link>
         <router-link to="validator">validator</router-link>
         <router-link to="calendar">calendar</router-link>
+        <router-link to="slideDelete">slideDelete</router-link>
     </div>
 </template>
 <script>

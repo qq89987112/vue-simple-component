@@ -6,6 +6,7 @@ import dialog from "./dialog.vue"
 import list from "./list.vue"
 import calendar from "./calendar.vue"
 import validator from "./validator.vue"
+import slideDelete from "./slideDelete.vue"
 
 Vue.use(Router);
 
@@ -26,6 +27,11 @@ let router = new Router({
       path: '/panel',
       name: 'panel',
       component: panel
+    },
+    {
+      path: '/slideDelete',
+      name: 'slideDelete',
+      component: slideDelete
     },
     {
       //这里头包含了loading

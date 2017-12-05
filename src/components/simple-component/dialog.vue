@@ -16,6 +16,22 @@
       }
     },
     methods: {
+      onScroll(e) {
+        let srcEle = e.srcElement;
+        if (srcEle.scrollTop + srcEle.offsetHeight === srcEle.scrollHeight) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      },
+      onBack() {
+//           return true 代表消耗掉这次的back
+//           return false 代表无作为
+        if (this.isShow()) {
+          this.hide();
+          return true;
+        }
+        return false;
+      },
       setType(type) {
         this.type = type;
       },
