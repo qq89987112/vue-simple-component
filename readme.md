@@ -20,3 +20,13 @@
 
 ## div模拟textarea文本域及高度自适应
 
+
+## 自定义滚动条
+    *::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+  
+    *::-webkit-scrollbar-thumb {
+      -webkit-box-shadow: inset 0 0 16px #645654;
+    }
