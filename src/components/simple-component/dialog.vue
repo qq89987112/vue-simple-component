@@ -50,7 +50,7 @@
         this.isShow = false;
         this.$emit("close");
       },
-      //当slot内容抽象成组件时,方便 @result="dialog.onResult"
+      //当slot内容抽象成组件时,方便 @result="function(){dialog.onResult}" 注意这里需要包裹一层function(){}
       onResult(data) {
         this._onResult(data);
       },
