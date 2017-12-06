@@ -107,7 +107,8 @@
     .slide {
       display: inline-block;
       float: right;
-
+      z-index: 999;
+      position: relative;
       &.active {
         margin-right: 0!important;
       }
