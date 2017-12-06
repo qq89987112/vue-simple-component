@@ -30,3 +30,9 @@
     *::-webkit-scrollbar-thumb {
       -webkit-box-shadow: inset 0 0 16px #645654;
     }
+
+
+## 常用色
+  蓝色 #20a0ff
+  字体色 #333 #666 #aaa
+  橙红色 #EE5544 
