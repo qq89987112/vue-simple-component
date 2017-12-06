@@ -60,8 +60,8 @@
                 slideMarginRight = marginRight  -mr;
               }
 
-              if(slideMarginRight>this.slideWidth){
-                slideMarginRight = this.slideWidth;
+              if(slideMarginRight>0){
+                slideMarginRight = 0;
               }else if(slideMarginRight<-this.slideWidth){
                 slideMarginRight = -this.slideWidth;
               }
