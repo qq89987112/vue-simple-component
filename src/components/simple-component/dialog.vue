@@ -111,6 +111,8 @@
     background-color: rgba(0, 0, 0, 0.5);
 
     &.full-screen {
+      background-color: unset;
+      box-shadow:unset;
       .content {
         width: 100%;
         height: 100%;

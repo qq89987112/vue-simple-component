@@ -139,8 +139,8 @@
       }
     }
     .loader1 div {
-      width: R(45) !important;
-      height: R(45) !important;
+      width: R(15) !important;
+      height: R(15) !important;
 
       border-radius: 50%;
       float: left;
