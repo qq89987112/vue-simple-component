@@ -1,6 +1,6 @@
 <template>
-  <div @touchstart="onStart" @touchmove="onMove" @touchend="onEnd" class="slide-box">
-    <div class="slide" :class="[{active:isActive}]" ref="slide" :style="slideStyle">
+  <div @touchstart="onStart" @touchmove="onMove" @touchend="onEnd" class="slide-box" @click="onOutSideClick">
+    <div class="slide" :class="[{active:isActive}]" ref="slide" :style="slideStyle" @click.stop>
       <slot name="slide"></slot>
     </div>
     <slot></slot>
@@ -8,25 +8,32 @@
 </template>
 
 <script>
+  //当默认slot的内容达到一定宽度时由使用者自己调整宽度,本组建默认slot符合合适的宽度
   export default {
     name: "slide",
     data() {
       this.distance = 20;
       return {
         isActive: false,
-        slideWidth:0,
+        slideWidth:undefined,
         slideMarginRight:undefined
       }
     },
     computed:{
       slideStyle(){
         return {
-          transition: this.slideMarginRight === undefined&&'margin-right 0.3s cubic-bezier(0.08, 0.29, 0.6, 0.83)',
+          transition: this.slideMarginRight === undefined&&this.slideWidth!==undefined&&'margin-right 0.3s cubic-bezier(0.08, 0.29, 0.31, 1.23)',
           marginRight:`${this.slideMarginRight === undefined ? -this.slideWidth : this.slideMarginRight}px`
         }
       },
     },
     methods: {
+      hideSide(){
+        this.isActive = false;
+      },
+      onOutSideClick(){
+        this.hideSide();
+      },
       onStart(e) {
         this.shouldMove = {
           startX: e.touches[0].clientX,
@@ -87,7 +94,9 @@
       },
     },
     mounted() {
-      this.slideWidth = this.$refs.slide.offsetWidth;
+      let slide = this.$refs.slide;
+      slide.style.marginRight = `${-slide.offsetWidth}px`;
+      this.slideWidth = slide.offsetWidth;
     }
   }
 </script>

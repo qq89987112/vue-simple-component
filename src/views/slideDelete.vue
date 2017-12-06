@@ -1,6 +1,8 @@
 <template>
     <slide>
-      我是内容
+      <div>
+        <p>12312</p>
+      </div>
       <div slot="slide" class="delete-box">删除</div>
     </slide>
 </template>
