@@ -1,8 +1,10 @@
-// 需要有一个max-height属性
-export default function (element,ellipsisClass='ellipsis') {
-  if(element.scrollHeight > element.offsetHeight){
-    element.classList.add(ellipsisClass);
-  }else{
-    element.classList.remove(ellipsisClass);
+export default {
+  bind(el, binding, vnode){
+    debugger;
+    if(el.scrollHeight > el.offsetHeight){
+      el.classList.add(binding.expression);
+    }else{
+      el.classList.remove(binding.expression);
+    }
   }
 }
