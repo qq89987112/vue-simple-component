@@ -29,15 +29,6 @@
           e.stopPropagation();
         }
       },
-      onBack() {
-//           return true 代表消耗掉这次的back
-//           return false 代表无作为
-        if (this.isShow) {
-          this.closeDialog();
-          return true;
-        }
-        return false;
-      },
       setType(type) {
         this.mType = type;
       },
@@ -76,7 +67,10 @@
           self.closeDialog();
         }
       };
-
+      // 需要在router加上这段代码
+      // let path = window.location.href.split('#')[1];
+      // router.push("/");
+      // router.push(path);
       this.__before_leave__ = function (to, from, next) {
         if (self.isShow) {
           self.closeDialog();

@@ -37,3 +37,4 @@
   字体色 #333 #666 #aaa
   橙红色 #EE5544 
   border #eee
+  Element的颜色规范
