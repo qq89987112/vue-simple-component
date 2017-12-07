@@ -14,6 +14,7 @@
     scrollHeight>offsetHeight + css max-height 做多行省略
 
 ## empty选择器 做空界面
+### empty选择器 + v-if 做loading
 
 ## 如果img非透明图或无透明部分，则可以使用 background+loading gif 来做。
 
