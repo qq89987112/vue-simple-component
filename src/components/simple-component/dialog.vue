@@ -32,7 +32,8 @@
       setType(type) {
         this.mType = type;
       },
-      showDialog() {
+      showDialog(isIntercept) {
+        this.isIntercept = isIntercept;
         setTimeout(() => {
           this.isShow = true;
         }, 0)
@@ -46,7 +47,7 @@
         this._onResult(data);
       },
       showDialogForResult() {
-        this.showDialog();
+        this.showDialog(true);
         return new Promise((resolve, rejct) => {
           this._onResult = (data) => {
             this.closeDialog();
@@ -72,7 +73,7 @@
       // router.push("/");
       // router.push(path);
       this.__before_leave__ = function (to, from, next) {
-        if (self.isShow) {
+        if (self.isShow && self.isIntercept) {
           self.closeDialog();
           next(false);
           return;
