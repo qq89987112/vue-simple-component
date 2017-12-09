@@ -42,3 +42,7 @@
 
 
 ## cubic-bezier 从无到有
+
+
+## 多页加载
+    API 调用后返回loadNext函数,这个函数维护相关参数。可以写一个wrapper
