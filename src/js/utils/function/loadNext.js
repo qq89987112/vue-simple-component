@@ -1,3 +1,4 @@
+// 想要重新加载可以重新调用获取新的$loadNext即可。
 export default function (apiFunc, page, rows, params) {
   let
     promise = apiFunc(page, rows, params),
