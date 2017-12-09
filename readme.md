@@ -55,6 +55,7 @@
         return isLoaded&&Promise.reject({msg:"全部加载完成"})||this.purchaseList(mobilePhone,page++,rows).then((data)=>{
           if(data.data.length===0){
             isLoaded = true;
+            return Promise.reject({msg: "全部加载完成"});
           }
           return data;
         });
