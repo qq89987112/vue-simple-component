@@ -56,6 +56,5 @@ export default {
       })
       return this.$cancelEx(ref,index)
     }
-
   }
 }

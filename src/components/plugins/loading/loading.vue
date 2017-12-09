@@ -32,7 +32,7 @@
         mask: this.mask !== undefined || this.loadMore !== undefined,
         loadMore: this.loadMore !== undefined
       };
-
+      this._cancel = ()=>{}
       return {
         loading: true,
 //        load-more
@@ -65,12 +65,14 @@
         this.loading = false;
 
       },
+      loadMask(){
+
+      },
       do() {
         if (this.types.mask) {
           this.$refs.loading.do();
         }
         this.loading = true;
-
       },
       isLoading() {
         return this.loading;

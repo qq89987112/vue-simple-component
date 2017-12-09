@@ -72,14 +72,13 @@
       onEnd(e) {
         let
           shouldMove = this.shouldMove,
-          distance = this.distance;
+          distance = this.distance,
+          touch = this.lastTouch;
 
           this.slideMarginRight = undefined;
 
-          if (shouldMove) {
-            let
-              touch = this.lastTouch,
-              mr = shouldMove.startX - touch.clientX;
+          if (shouldMove&&touch) {
+            let mr = shouldMove.startX - touch.clientX;
 
             if (mr > distance) {
               //  从右往左
