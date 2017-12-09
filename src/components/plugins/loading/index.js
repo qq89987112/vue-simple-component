@@ -56,5 +56,13 @@ export default {
       })
       return this.$cancelEx(ref,index)
     }
+
+    Vue.prototype.$loadMask = function(ref, index){
+      this.$nextTick(()=>{
+        let $ref = check.bind(this)(ref,index);
+        $ref&&$ref.loadMask();
+      });
+      return this.$cancelEx(ref,index)
+    }
   }
 }

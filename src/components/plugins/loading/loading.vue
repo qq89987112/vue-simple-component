@@ -1,19 +1,14 @@
 <template>
-  <div class="loader-box" :class="{loading:loading,loadMore:types.loadMore}" @wheel="onLikeScroll" @touchmove="onLikeScroll" @scroll="onScroll">
-    <template v-if="types.mask">
-      <loading :loader="loader" :wait="wait" v-show="loading" class="mask-loading" ref="loading"></loading>
-      <slot>
-      </slot>
-    </template>
-    <template v-else>
-      <div class="loader" :class="[loader]" v-show="loading">
-        <div ref="loading"></div>
-        <div ref="loading"></div>
-        <div ref="loading"></div>
-      </div>
-      <slot v-if="!loading">
-      </slot>
-    </template>
+  <div class="loader-box" :class="{loading:loading,loadMore:types.loadMore}" @wheel="onLikeScroll"
+       @touchmove="onLikeScroll" @scroll="onScroll">
+    <loading v-if="isLoadMask || types.mask&&loading" :loader="loader" :wait="wait" class="mask-loading" ref="loading"></loading>
+    <div class="loader" :class="[loader]" v-if="!types.mask&&loading">
+      <div ref="loading"></div>
+      <div ref="loading"></div>
+      <div ref="loading"></div>
+    </div>
+    <slot v-if="types.mask||!loading">
+    </slot>
   </div>
 </template>
 <script>
@@ -24,37 +19,27 @@
       'loader': {
         default: 'loader1'
       },
-      'mask': undefined,
-      'loadMore': undefined,
+      'mask': undefined
     },
     data() {
       this.types = {
-        mask: this.mask !== undefined || this.loadMore !== undefined,
-        loadMore: this.loadMore !== undefined
+        mask: this.mask !== undefined || this.loadMore !== undefined
       };
-      this._cancel = ()=>{}
       return {
         loading: true,
-//        load-more
-        page:1,
-        rows:10,
+        // loadMask专用
+        isLoadMask: false
       }
     },
     methods: {
-      onLikeScroll(e){
-        if(this.loading){
-          e.stopPropagation();
-          e.preventDefault();
-        }
+      onLikeScroll(e) {
+        this.onScroll(e);
       },
 //      load-more begin
-      onScroll(e){
-        if(this.types.loadMore){
-          let srcEle = e.srcElement;
-          if (srcEle.scrollHeight === srcEle.scrollTop + srcEle.offsetHeight && !this.loadMore) {
-            this.do();
-            this.$emit("loadPage",++this.page,this.rows);
-          }
+      onScroll(e) {
+        if (this.loading) {
+          e.stopPropagation();
+          e.preventDefault();
         }
       },
 //      load-more end
@@ -62,11 +47,12 @@
         if (this.types.mask) {
           this.$refs.loading.cancel();
         }
+        this.isLoadMask = false;
         this.loading = false;
 
       },
-      loadMask(){
-
+      loadMask() {
+        this.isLoadMask = true;
       },
       do() {
         if (this.types.mask) {
@@ -92,15 +78,10 @@
     position: relative;
     height: 100%;
 
-    &.load-more{
+    &.load-more {
       overflow-y: auto;
     }
 
-    &.loading {
-      .mask-loading {
-        display: block;
-      }
-    }
     .mask-loading {
       position: fixed;
       top: 0;
@@ -110,7 +91,7 @@
       background: white;
       opacity: 0.5;
       z-index: 2;
-      display: none;
+      display: block;
     }
 
     .loader {
