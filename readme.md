@@ -45,4 +45,35 @@
 
 
 ## 多页加载
-    API 调用后返回loadNext函数,这个函数维护相关参数。可以写一个wrapper
+    API 调用后返回loadNext函数,这个函数维护相关参数。
+    
+    purchaseList(mobilePhone,page,rows){
+      let axiosPromise = axios.post(`/weChat/onlineService/${mobilePhone}/purchaseList?page=${page}&rows=${rows}`),
+          isLoaded = false;
+      axiosPromise.$loadNext = ()=>{
+        debugger;
+        return isLoaded&&Promise.reject({msg:"全部加载完成"})||this.purchaseList(mobilePhone,page++,rows).then((data)=>{
+          if(data.data.length===0){
+            isLoaded = true;
+          }
+          return data;
+        });
+      };
+      return axiosPromise;
+    }
+    
+    methods中写两个函数
+    
+      fetchList(){
+        return shop.purchaseList(membership.mobilePhone, 1, rows);
+      },
+      loadNext() {
+        this.purchaseList.$loadNext().then((data)=>{
+          this.productList.concat(data.data);
+        }).catch((data)=>{
+          this.$toast(data.msg);
+        })
+      },
+      
+      
+    先要重新加载就重新调用fetchList获取新的$loadNext即可。
