@@ -38,6 +38,10 @@ export default function (apiFunc,{ rows = 10,params}) {
                   }
                   return data;
               });
-      }
+      },
+      //  并不需要,直接loadNext拿到报错即可
+      // isLoaded(){
+      //   return _isLoaded;
+      // }
     }
 }
