@@ -63,7 +63,8 @@
 
     .toast {
       padding: R(2.5) R(10);
-      background: #20a0ff;
+      /*background: #20a0ff;*/
+      background: #58c62f;
       opacity: 0;
       text-align: center;
       position: fixed;
