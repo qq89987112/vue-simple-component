@@ -3,9 +3,9 @@
        @touchmove="onLikeScroll" @scroll="onScroll">
     <loading v-if="isLoadMask || types.mask&&loading" :loader="loader" :wait="wait" class="mask-loading" ref="loading"></loading>
     <div class="loader" :class="[loader]" v-if="!types.mask&&loading">
-      <div ref="loading"></div>
-      <div ref="loading"></div>
-      <div ref="loading"></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
     <slot v-if="types.mask||!loading">
     </slot>
