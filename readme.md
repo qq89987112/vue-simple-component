@@ -34,10 +34,16 @@
 
 
 ## 常用色
-  蓝色 #20a0ff
-  字体色 #333 #666 #aaa
-  橙红色 #EE5544 
-  border #eee
+  灰色
+    #b9b9b9
+  蓝色
+    #20a0ff
+  字体色
+    #333 #666 #aaa
+  橙红色
+    #EE5544 
+  border
+    #eee
   Element的颜色规范
 
 
