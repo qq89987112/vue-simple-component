@@ -1,11 +1,10 @@
-
-.empty {
-  &:empty {
-    height: 25px;
-    border: 1px solid #ddd;
-    background: #eee;
-    &::before {
-      content: attr(empty-text);
+.empty{
+  &:empty{
+    &:before{
+      content: '暂无内容!';
+      text-align: center;
+      width: 100%;
+      display: inline-block;
     }
   }
 }
