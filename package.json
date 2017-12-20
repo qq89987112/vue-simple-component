@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "npm run dev",
-    "build": "node build/build.js"
+    "build": "node %NODE_DEBUG_OPTION% build/build.js"
   },
   "dependencies": {
     "concat-stream": "^1.6.0",
