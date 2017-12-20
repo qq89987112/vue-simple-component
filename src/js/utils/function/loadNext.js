@@ -1,4 +1,4 @@
-export default function (apiFunc,{ rows = 10,params}) {
+export default function (apiFunc,{ rows = 10,params} = {}) {
   // 想要重新加载可以重新调用获取新的$loadNext即可。
   // let
   //   promise = apiFunc(page, rows, params),
