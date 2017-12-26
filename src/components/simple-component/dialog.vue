@@ -32,8 +32,11 @@
       setType(type) {
         this.mType = type;
       },
-      showDialog(isIntercept) {
+      setIntercept(isIntercept){
         this.isIntercept = isIntercept;
+      },
+      showDialog(isIntercept) {
+        this.setIntercept(isIntercept);
         setTimeout(() => {
           this.isShow = true;
         }, 0)
@@ -73,15 +76,13 @@
       // router.push("/back");
       // router.push(path);
 
-      // router.beforeEach((to, from, next) => {
+      // //beforeEach的优先级比  this.$router.beforeHooks.push(this.__before_leave__) 优先级高
+      // router.afterEach((to, from,) => {
       //   document.title = to.meta.title||'请稍候';
-      //
       //   if (from.fullPath!=='/' && to.fullPath === '/back') {
       //     router.back();//把back页面back掉
       //     router.back();//把第一次进来的页面back掉
-      //     return;
       //   }
-      //   next(true)
       // });
       this.__before_leave__ = function (to, from, next) {
         if (self.isShow && self.isIntercept) {
