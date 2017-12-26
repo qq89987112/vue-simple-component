@@ -70,7 +70,7 @@
       };
       // 需要在router加上这段代码
       // let path = window.location.href.split('#')[1];
-      // router.push("/");
+      // router.push("/back");
       // router.push(path);
 
       // router.beforeEach((to, from, next) => {
