@@ -72,6 +72,17 @@
       // let path = window.location.href.split('#')[1];
       // router.push("/");
       // router.push(path);
+
+      // router.beforeEach((to, from, next) => {
+      //   document.title = to.meta.title||'请稍候';
+      //
+      //   if (from.fullPath!=='/' && to.fullPath === '/back') {
+      //     router.back();//把back页面back掉
+      //     router.back();//把第一次进来的页面back掉
+      //     return;
+      //   }
+      //   next(true)
+      // });
       this.__before_leave__ = function (to, from, next) {
         if (self.isShow && self.isIntercept) {
           self.closeDialog();
