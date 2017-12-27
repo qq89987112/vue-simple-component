@@ -9,7 +9,7 @@
 html {
 	-webkit-text-size-adjust:100%;
 	-ms-text-size-adjust:100%;
-	background:#EFEFF4;
+	/*background:#EFEFF4;*/
 	color:#333;
 }
 
@@ -26,7 +26,6 @@ body{
 	font-family:微软雅黑,tahoma, arial, simsun, sans-serif;
 	font-size:inherit;
 	font-weight:inherit;
-	line-height:1.428;
 	/*line-height:1.42;*/
 }
 
@@ -152,20 +151,6 @@ ins, a {
 	color:#666;
 }
 
-/*functions*/
-/* 不易引起问题的清除浮动，但是与空标签配合使用 */
-.clear {
-	display:block;
-	float:none;
-	clear:both;
-	overflow:hidden;
-	visibility:hidden;
-	width:0;
-	height:0;
-	background:none;
-	border:0;
-	font-size:0;
-}
 
 /* 不需要用空标签的 clearfix，用于内部包含浮动 */
 .clearfix:before, .clearfix:after {
@@ -189,26 +174,9 @@ ins, a {
 	*display:inline;
 }
 */
-/* 跨浏览器兼容的 inline-block，用于外围的包含元素 */
-.dib-wrap{
-	font-size:0;
-	*word-spacing:-1px;
-}
 
-/* 需要 display:inline-block 的元素，但是外围必须有 .dib-wrap */
-.dib-wrap .dib{
-	font-size:14px;
-	letter-spacing:normal;
-	word-spacing: normal;
-	vertical-align:top;
-}
 
-/* 为 webkit 单独优化字距 */
-@media screen and (-webkit-min-device-pixel-ratio:0){
-.dib-wrap{
-	letter-spacing:-5px;
-}
-}
+
 
 /*文字超出*/
 .ellipsis{
