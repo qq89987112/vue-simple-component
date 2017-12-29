@@ -84,3 +84,26 @@
       
       
     先要重新加载就重新调用fetchList获取新的$loadNext即可。
+
+
+# 遇到的奇怪bug
+    /*莫名用不了*/
+    .service-item {
+        &.flow{
+          background-image: url("../assets/images/score@2x.png");
+        }
+  
+        &.address{
+          background-image: url("../assets/images/address@2x.png");
+        }
+  
+        &.buy-record{
+          background-image: url("../assets/images/buy-record@2x.png");
+        }
+  
+        &.service-record{
+          background-image: url("../assets/images/service@2x.png");
+        }
+    }
+    
+    并非用不了,而是类与类之间的空格是tab符号,不是空格符
