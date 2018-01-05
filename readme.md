@@ -1,6 +1,8 @@
 # simple components
 
 # 一些技巧
+## 路由、emit 传参如果时对象,尽量内容越少越好，不然会卡！
+
 ## 移动端empty界面
     使用 empty选择器做页面无数据时展示的内容(before的背景图以及 content文字)
 
