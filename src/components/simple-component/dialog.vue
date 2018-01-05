@@ -51,13 +51,17 @@
       },
       showDialogForResult() {
         this.showDialog(true);
+
+        // 移除已经存在的事件
+        this.$off("result");
         return new Promise((resolve, rejct) => {
+
           this._onResult = (data) => {
             this.closeDialog();
             resolve(data);
             this._onResult = () => {};
           };
-          this.$once("result", this._onResult)
+          this.$once("result",this._onResult)
         });
       },
       setFlag(flag) {
