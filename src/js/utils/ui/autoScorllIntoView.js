@@ -1,11 +1,13 @@
 const handle = function () {
-  document.activeElement.scrollIntoView();
+  let activeElement = document.activeElement;
+  activeElement.scrollIntoView();
+  activeElement.scrollIntoViewIfNeeded();
 }
 export default {
   register(){
-    window.addEventListener('onResize',handle)
+    window.addEventListener('resize',handle)
   },
   destory(){
-    window.removeEventListener('onResize',handle)
+    window.removeEventListener('resize',handle)
   }
 }
