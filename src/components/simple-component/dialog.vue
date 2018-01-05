@@ -86,6 +86,12 @@
       //   if (from.fullPath!=='/' && to.fullPath === '/back') {
       //     router.back();//把back页面back掉
       //     router.back();//把第一次进来的页面back掉
+      //    微信直接关闭浏览器
+      //       try{
+      //         wx.closeWindow();
+      //       }catch (e){
+      //
+      //       }
       //   }
       // });
       this.__before_leave__ = function (to, from, next) {
