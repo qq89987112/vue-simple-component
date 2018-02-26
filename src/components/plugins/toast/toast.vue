@@ -31,13 +31,13 @@
       },
       hide() {
         this.isShow = false;
-
         return new Promise((resolve,reject)=>{
           setTimeout(resolve,300);
         })
       },
 //        暂时性按照某个方向toast,还会恢复html中配置的position
       show(content, position = this.position) {
+        this.type = "";
         let temp_position = this.position;
         this.content = content;
         this.position = position;
@@ -63,8 +63,7 @@
 
     .toast {
       padding: R(2.5) R(10);
-      /*background: #20a0ff;*/
-      background: #58c62f;
+      background: #20a0ff;
       opacity: 0;
       text-align: center;
       position: fixed;
@@ -74,7 +73,7 @@
       z-index: -111;
 
       &.error {
-        background-color: #EE554D;
+        background-color: #EE5544;
       }
 
       &.active {
