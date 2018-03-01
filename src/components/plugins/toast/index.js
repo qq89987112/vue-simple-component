@@ -36,7 +36,7 @@ export default {
     }
     Vue.prototype.$toastError = function (content,ref) {
       let toast = getInstance.bind(this)();
-      toast.showOnce("error",content);
+      toast.showError(content);
     };
 
     Vue.prototype.$toastErrorEx = function (content,ref) {
@@ -48,7 +48,7 @@ export default {
 
       Vue.prototype.$toast = function(content,ref){
         let toast = getInstance.bind(this)();
-        toast.show(content);
+        toast.showSuccess(content);
     };
 
     Vue.prototype.$toastEx = function(content,ref){

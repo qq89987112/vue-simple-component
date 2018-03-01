@@ -6,22 +6,24 @@
 <script>
   export default {
     name: 'toast',
-    props: {
-      position: {
-        default: 'bottom'
-      },
-      duration: {
-        default: 2000
-      },
-    },
     data() {
       return {
         content: '',
         isShow: false,
-        type:''
+        type:'',
+        position:'bottom',
+        duration:2000
       }
     },
     methods: {
+      showSuccess(content, position = this.position){
+        debugger
+        this.showOnce("",content,position);
+      },
+      showError(content, position = this.position){
+        debugger
+        this.showOnce("error",content,position);
+      },
       showOnce(type, content, position = this.position) {
         const oldType = this.type;
         this.type = type;
@@ -37,7 +39,6 @@
       },
 //        暂时性按照某个方向toast,还会恢复html中配置的position
       show(content, position = this.position) {
-        this.type = "";
         let temp_position = this.position;
         this.content = content;
         this.position = position;
