@@ -2,6 +2,7 @@
 
 # 一些技巧
 ## 路由、emit 传参如果时对象,尽量内容越少越好，不然会卡！
+## 如果对v-model的对象里头已经存在的字段进行更改,组件不需要$emit('input')即可做到数据响应。
 
 ## 移动端empty界面
     使用 empty选择器做页面无数据时展示的内容(before的背景图以及 content文字)
@@ -29,7 +30,7 @@
       width: 5px;
       height: 5px;
     }
-  
+
     *::-webkit-scrollbar-thumb {
       -webkit-box-shadow: inset 0 0 16px #645654;
     }
@@ -41,9 +42,9 @@
   蓝色
     #20a0ff
   字体色
-    #333 #666 #b9b9b9 #aaa 
+    #333 #666 #b9b9b9 #aaa
   橙红色
-    #EE5544 
+    #EE5544
   border
     #eee
   Element的颜色规范
@@ -54,7 +55,7 @@
 
 ## 多页加载
     API 调用后返回loadNext函数,这个函数维护相关参数。
-    
+
     purchaseList(mobilePhone,page,rows){
       let axiosPromise = axios.post(`/weChat/onlineService/${mobilePhone}/purchaseList?page=${page}&rows=${rows}`),
           isLoaded = false;
@@ -70,9 +71,9 @@
       };
       return axiosPromise;
     }
-    
+
     methods中写两个函数
-    
+
       fetchList(){
         return shop.purchaseList(membership.mobilePhone, 1, rows);
       },
@@ -83,8 +84,8 @@
           this.$toast(data.msg);
         })
       },
-      
-      
+
+
     先要重新加载就重新调用fetchList获取新的$loadNext即可。
 
 
@@ -94,18 +95,18 @@
         &.flow{
           background-image: url("../assets/images/score@2x.png");
         }
-  
+
         &.address{
           background-image: url("../assets/images/address@2x.png");
         }
-  
+
         &.buy-record{
           background-image: url("../assets/images/buy-record@2x.png");
         }
-  
+
         &.service-record{
           background-image: url("../assets/images/service@2x.png");
         }
     }
-    
+
     并非用不了,而是类与类之间的空格是tab符号,不是空格符
