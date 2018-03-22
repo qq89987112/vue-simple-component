@@ -30,6 +30,8 @@ export default {
       startX = e.clientX;
       startY = e.clientY;
       isMove = true;
+      // 主动对z-index赋值为更高，本指令不做赋值
+      vNode.context.$emit('moveBegin', e);
     },
       el.mousemove = (e) => {
         if (isMove) {
@@ -43,6 +45,8 @@ export default {
         startY = 0;
         el.style.transition = `transform .3s`
         el.style.transform = `translate3d(0,0,0)`;
+        // 主动对z-index恢复为原来的值，本指令不做赋值
+        vNode.context.$emit('moveEnd', e);
       };
     el.addEventListener('mousedown', el.mousedown)
     document.addEventListener('mousemove', el.mousemove)
