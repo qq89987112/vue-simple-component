@@ -31,12 +31,12 @@ export default {
       startY = e.clientY;
       isMove = true;
       // 主动对z-index赋值为更高，本指令不做赋值
-      vNode.context.$emit('moveBegin', e);
+      vNode.componentInstance.$emit('moveBegin', e);
     },
       el.mousemove = (e) => {
         if (isMove) {
           el.style.transform = `translate3d(${e.clientX - startX}px,${e.clientY - startY}px,0)`;
-          vNode.context.$emit('move', e);
+          vNode.componentInstance.$emit('move', e);
         }
       },
       el.mouseup = (e) => {
@@ -46,7 +46,7 @@ export default {
         el.style.transition = `transform .3s`
         el.style.transform = `translate3d(0,0,0)`;
         // 主动对z-index恢复为原来的值，本指令不做赋值
-        vNode.context.$emit('moveEnd', e);
+        vNode.componentInstance.$emit('moveEnd', e);
       };
     el.addEventListener('mousedown', el.mousedown)
     document.addEventListener('mousemove', el.mousemove)
