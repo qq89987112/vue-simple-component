@@ -1,5 +1,18 @@
 export default {
   inserted(el, binding, vNode, oldVNode) {
+    // .base-component{
+    //     position: relative;
+    //   &:before{
+    //       content: '';
+    //       display: inline-block;
+    //       position: absolute;
+    //       left: 0;
+    //       right: 0;
+    //       bottom: 0;
+    //       top: 0;
+    //       z-index: 1;
+    //     }
+    //   }
     el.style.transform = `translate3d(0,0,0)`;
     let
       startX = 0,
