@@ -1,13 +1,87 @@
 let
-  lastPlayed = [],
+  isAnimation = false,
+// 只有overlap出去后再回来才能触发
+  lastOverlapIndex;
+
+export function applyConfigList(dataSourceList, configList) {
+  return configList.map(i=>dataSourceList[i]);
+}
+
+export function insert(arr, src, dest) {
+  let tempArr = arr.slice(0);
+
+  // insert
+
+  if(src>dest){
+    tempArr.splice(dest, 0, tempArr.splice(src, 1)[0])
+  }else {
+    tempArr.splice(dest+1,0,tempArr[src]);
+    tempArr.splice(src,1);
+  }
+
+
+  // replace
+  // let temp = tempArr[a];
+  // tempArr[a] = tempArr[b];
+  // tempArr[b] = temp;
+
+  return tempArr;
+}
+
+
+export function startAnimation(elementList, dragElement) {
+  dragElement.configList = elementList.map((item, i) => i);
   isAnimation = false;
-// 用于拖动切换位置。当界面更新前(mouseup),帮助你完成切换相关动画,
-export function overlapDetection(elementList, dragElement) {
-  //播放动画时不检测
-  let overlapIndex;
+  lastOverlapIndex = undefined;
+}
+
+// 播放回归动画(mouseup)
+export function stopAnimation(elementList, dragElement) {
+
+  return new Promise((resolve, reject) => {
+    let
+      configList = dragElement.configList || [],
+      originIndex = elementList.findIndex(i => i === dragElement),
+      index = configList.findIndex(i => i === originIndex),
+      a, b, height,
+     arr = insert(elementList,originIndex,index);
+
+
+    if(originIndex>=0 && index>=0){
+      if (originIndex < index) {
+        a = originIndex;
+        b = index;
+      } else {
+        a = index +1;
+        b = originIndex+1;
+      }
+      height = arr.slice(a,b).reduce((prev, cur) => {
+        return prev + ((cur&&cur.offsetHeight)||0)
+      }, 0);
+
+      dragElement.style.transition = `transform .3s`;
+      dragElement.style.transform = `translate3d(0px,${((index - originIndex) < 0 ? -1 : 1) * height}px,0px)`
+      let configList = dragElement.configList;
+      dragElement.configList = undefined;
+      setTimeout(() => {
+        resolve(configList);
+      }, 300)
+    }
+
+
+  })
+
+}
+
+
+export function playAnimation(elementList, dragElement) {
+  // overlap检测 播放动画时不检测
+  let
+    overlapIndex = -1,
+    dragIndex = elementList.findIndex(i => i === dragElement);
   if (!isAnimation) {
     elementList.find((item, index) => {
-      if (item === dragElement) {
+      if (item === dragElement || !(item&&dragElement)) {
         return;
       }
       //  它两顶底的距离 要是 <= 它两最高的那一个,就算是重叠了。
@@ -24,89 +98,38 @@ export function overlapDetection(elementList, dragElement) {
       if (bottom - top <= height) {
         overlapIndex = index;
       }
-      return overlapIndex !== undefined;
+      return overlapIndex !== -1;
     });
-  }
-  return overlapIndex;
-}
 
-// index从上到下,从小到大
-export function hoverItemAnimation(elementList, overlapItem, dragElement) {
-  if (!isAnimation) {
-    let
-      overlapIndex = elementList.findIndex(i => i === overlapItem),
-      dragIndex = elementList.findIndex(i => i === dragElement),
-      height = dragElement.offsetHeight,
-      played = [];
 
-    if (overlapIndex >=0 && dragIndex >=0) {
-      if (overlapIndex < dragIndex) {
-        // 鼠标往上滑
-        played = elementList.slice(overlapIndex, dragIndex)
-
-        played.forEach(item => {
-          item.style.transition = `transform .3s`;
-          item.style.transform = `translate3d(${0},${height}px,0)`
-
-        })
-      } else {
-        // 鼠标往下滑 +1 是因为 前闭后开
-        played = elementList.slice(dragIndex + 1, overlapIndex + 1);
-        played.forEach(item => {
-          item.style.transition = 'transform .3s';
-          item.style.transform = `translate3d(${0},${-height}px,0)`;
-        })
-      }
+    if (lastOverlapIndex !== overlapIndex && overlapIndex >= 0) {
+      let configList = dragElement.configList || [];
+      let
+        configOverlapIndex = configList.findIndex(i => i === overlapIndex),
+        configDragIndex = configList.findIndex(i => i === dragIndex);
+      dragElement.configList = insert(configList, configDragIndex,configOverlapIndex );
+      applyAnimation(elementList, dragElement);
     }
-
-
-    //计算需要恢复transform的元素
-    lastPlayed.forEach(item=>{
-      if (!~played.indexOf(item)) {
-        item.style.transform = `translate3d(0,0,0)`;
-      }
-    })
-
-    lastPlayed = played;
-    if (!lastPlayed.length) {
-      isAnimation = true;
-      setTimeout(()=>{
-        isAnimation = false;
-      },300)
-    }
+    lastOverlapIndex = overlapIndex;
   }
 }
 
-// 播放回归动画(mouseup)
-export function beforeUpdateAnimation(elementList, overlapItem, dragElement) {
-  let
-    overlapIndex = elementList.findIndex(i => i === overlapItem),
-    dragIndex = elementList.findIndex(i => i === dragElement),
-    played,
-    height = 0;
-  return new Promise((resolve, reject)=>{
-    if (overlapIndex >=0 && dragIndex >=0) {
-      if (overlapIndex < dragIndex) {
-        // 鼠标往上滑
-        played = elementList.slice(overlapIndex, dragIndex)
 
-        height = -played.reduce((total,item) => {
-          return total+=item.offsetHeight
-        },0)
-      } else {
-        // 鼠标往下滑 +1 是因为 前闭后开
-        played = elementList.slice(dragIndex + 1, overlapIndex + 1);
-        height = played.reduce((total,item) => {
-          return total+=item.offsetHeight
-        },0)
-      }
-      dragElement.style.transition = 'transform .3s';
-      dragElement.style.transform = `translate3d(${0},${height}px,0)`;
+function applyAnimation(elementList, dragElement) {
+  let configList = dragElement.configList;
+  configList.forEach((originIndex, index) => {
+    let element = elementList[originIndex];
+    if (element === dragElement) {
+      return;
     }
-
+    isAnimation = true;
+    element.style.transition = `transform .3s`;
+    element.style.transform = `translate3d(0,${(index - originIndex) * dragElement.offsetHeight}px,0)`
+    setTimeout(() => {
+      isAnimation = false;
+    }, 300)
   })
 }
-
 
 export default {
   unbind(el) {
@@ -154,8 +177,8 @@ export default {
         isMove = false;
         startX = 0;
         startY = 0;
-        el.style.transition = `transform .3s`
-        el.style.transform = `translate3d(0,0,0)`;
+        // el.style.transition = `transform .3s`
+        // el.style.transform = `translate3d(0,0,0)`;
         // 主动对z-index恢复为原来的值，本指令不做赋值
         emiiter.$emit('moveEnd', e);
       };
