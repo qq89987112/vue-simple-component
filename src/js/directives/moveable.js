@@ -38,7 +38,7 @@ let
 
 
 
-
+// 暂时存在的问题：鼠标滚动有瑕疵
 
 
 export function applyConfigList(dataSourceList, configList) {
@@ -77,36 +77,36 @@ export function startAnimation(elementList, dragElement) {
 export function stopAnimation(elementList, dragElement) {
 
   return new Promise((resolve, reject) => {
-    let
-      configList = dragElement.configList || [],
-      originIndex = elementList.findIndex(i => i === dragElement),
-      index = configList.findIndex(i => i === originIndex),
-      a, b, height,
-     arr = insert(elementList,originIndex,index);
+    if (dragElement) {
+      let
+        configList = dragElement.configList || [],
+        originIndex = elementList.findIndex(i => i === dragElement),
+        index = configList.findIndex(i => i === originIndex),
+        a, b, height,
+        arr = insert(elementList,originIndex,index);
 
 
-    if(originIndex>=0 && index>=0){
-      if (originIndex < index) {
-        a = originIndex;
-        b = index;
-      } else {
-        a = index +1;
-        b = originIndex+1;
+      if(originIndex>=0 && index>=0){
+        if (originIndex < index) {
+          a = originIndex;
+          b = index;
+        } else {
+          a = index +1;
+          b = originIndex+1;
+        }
+        height = arr.slice(a,b).reduce((prev, cur) => {
+          return prev + ((cur&&cur.offsetHeight)||0)
+        }, 0);
+
+        dragElement.style.transition = `transform .3s`;
+        dragElement.style.transform = `translate3d(0px,${((index - originIndex) < 0 ? -1 : 1) * height}px,0px)`
+        let configList = dragElement.configList;
+        dragElement.configList = undefined;
+        setTimeout(() => {
+          resolve(configList);
+        }, 300)
       }
-      height = arr.slice(a,b).reduce((prev, cur) => {
-        return prev + ((cur&&cur.offsetHeight)||0)
-      }, 0);
-
-      dragElement.style.transition = `transform .3s`;
-      dragElement.style.transform = `translate3d(0px,${((index - originIndex) < 0 ? -1 : 1) * height}px,0px)`
-      let configList = dragElement.configList;
-      dragElement.configList = undefined;
-      setTimeout(() => {
-        resolve(configList);
-      }, 300)
     }
-
-
   })
 
 }
