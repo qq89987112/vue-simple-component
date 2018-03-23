@@ -194,7 +194,8 @@ export default {
     let
       startX = 0,
       startY = 0,
-      isMove = false;
+      isMove = false,
+      emitBegin = null;
 
     let emiiter = vNode.componentInstance || vNode.context;
     el.mousedown = (e) => {
@@ -202,11 +203,19 @@ export default {
       startX = e.clientX;
       startY = e.clientY;
       isMove = true;
-      // 主动对z-index赋值为更高，本指令不做赋值
-      emiiter.$emit('moveBegin', e);
+      let currentTarget = e.currentTarget;
+      let target = e.target;
+      emitBegin = ()=>{
+        // 主动对z-index赋值为更高，本指令不做赋值
+        emiiter.$emit('moveBegin', {...e,currentTarget,target});
+      };
     },
       el.mousemove = (e) => {
         if (isMove) {
+          if (emitBegin) {
+            emitBegin();
+            emitBegin = null;
+          }
           el.style.transform = `translate3d(${e.clientX - startX}px,${e.clientY - startY}px,0)`;
           emiiter.$emit('move', e);
         }
