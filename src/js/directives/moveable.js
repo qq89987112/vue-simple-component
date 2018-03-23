@@ -3,6 +3,44 @@ let
 // 只有overlap出去后再回来才能触发
   lastOverlapIndex;
 
+
+
+
+
+// onMoveBegin(index, e) {
+//   let elementList = this.$refs.baseManager.map(i => i.$el);
+//   let dragElement = e.target;
+//   startAnimation(elementList, dragElement.parentElement);
+// },
+// onMove(index, e) {
+//   let elementList = this.$refs.baseManager.map(i => i.$el);
+//   let dragElement = e.target;
+//   playAnimation(elementList, dragElement.parentElement);
+//
+// },
+// onMoveEnd(index, e) {
+//   let elementList = this.$refs.baseManager.map(i => i.$el);
+//   let dragElement = e.target;
+//   stopAnimation(elementList,dragElement.parentElement).then((configList) => {
+//     let compoents = this.components;
+//     this.components = [];
+//     this.$nextTick(() => {
+//       this.components = applyConfigList(compoents,configList);
+//     })
+//   });
+// },
+
+
+
+
+
+
+
+
+
+
+
+
 export function applyConfigList(dataSourceList, configList) {
   return configList.map(i=>dataSourceList[i]);
 }
