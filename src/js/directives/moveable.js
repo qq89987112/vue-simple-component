@@ -1,7 +1,8 @@
 let
   isAnimation = false,
 // 只有overlap出去后再回来才能触发
-  lastOverlapIndex;
+  lastOverlapIndex,
+  startDragElement;
 
 
 
@@ -71,6 +72,7 @@ export function startAnimation(elementList, dragElement) {
   dragElement.configList = elementList.map((item, i) => i);
   isAnimation = false;
   lastOverlapIndex = undefined;
+  startDragElement = dragElement;
 }
 
 // 播放回归动画(mouseup)
@@ -105,6 +107,11 @@ export function stopAnimation(elementList, dragElement) {
         setTimeout(() => {
           resolve(configList);
         }, 300)
+      }else if(startDragElement){
+        //  归位要是要归位的。
+        startDragElement.style.transition = `transform .3s`;
+        startDragElement.style.transform = `translate3d(0,0,0)`
+        startDragElement = undefined;
       }
     }
   })
