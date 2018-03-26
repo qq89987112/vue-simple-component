@@ -126,14 +126,17 @@ export function playAnimation(elementList, dragElement) {
       let
         boundingBox = item.getBoundingClientRect(),
         dragBoundingBox = dragElement.getBoundingClientRect(),
-        boundingBoxHeight = boundingBox.y + boundingBox.height,
-        dragBoundingBoxHeight = dragBoundingBox.y + dragBoundingBox.height,
-        top = boundingBox.y < dragBoundingBox.y ? boundingBox.y : dragBoundingBox.y,
+        boundingBoxHeight = boundingBox.top + boundingBox.height,
+        dragBoundingBoxHeight = dragBoundingBox.top + dragBoundingBox.height,
+        top = boundingBox.top < dragBoundingBox.top ? boundingBox.top : dragBoundingBox.top,
         bottom = boundingBoxHeight > dragBoundingBoxHeight ? boundingBoxHeight : dragBoundingBoxHeight,
         height = dragBoundingBox.height > boundingBox.height ? dragBoundingBox.height : boundingBox.height;
 
 
-      if (bottom - top <= height) {
+      // height = dragElement.offsetHeight > item.offsetHeight ? dragElement.offsetHeight : item.offsetHeight;
+      console.log(bottom, top, height,bottom-top);
+      // 同样的元素,总会相差那几像素,补上！
+      if (bottom - top <= height+5) {
         overlapIndex = index;
       }
       return overlapIndex !== -1;
