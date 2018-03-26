@@ -79,9 +79,10 @@ export function startAnimation(elementList, dragElement) {
 export function stopAnimation(elementList, dragElement) {
 
   return new Promise((resolve, reject) => {
-    if (dragElement) {
+    let
+      configList = dragElement&&dragElement.configList;
+    if (configList) {
       let
-        configList = dragElement.configList || [],
         originIndex = elementList.findIndex(i => i === dragElement),
         index = configList.findIndex(i => i === originIndex),
         a, b, height,
