@@ -142,7 +142,7 @@ export function playAnimation(elementList, dragElement) {
 
 
       // height = dragElement.offsetHeight > item.offsetHeight ? dragElement.offsetHeight : item.offsetHeight;
-      console.log(bottom, top, height,bottom-top);
+      // console.log(bottom, top, height,bottom-top);
       // 同样的元素,总会相差那几像素,补上！
       if (bottom - top <= height+5) {
         overlapIndex = index;
