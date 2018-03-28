@@ -1,36 +1,36 @@
 <template>
-    <div class="wrap-modal" :class="maskFlag&&'active'">
-      <div :class="['modal-mask',maskFlag&&'active']" @click="onClose"></div>
-      <div class="modal-content" :style="{width:width+'px'}">
-        <div class="modal-title">
-          <span v-if="title">{{title}}</span>
-          <span class="close" @click="onClose">X</span>
-        </div>
-        <slot></slot>
+  <div class="wrap-modal" :class="maskFlag&&'active'">
+    <div :class="['modal-mask',maskFlag&&'active']" @click="onClose"></div>
+    <div class="modal-content" :style="{width:width+'px'}">
+      <div class="modal-title">
+        <span v-if="title">{{title}}</span>
+        <span class="close" @click="onClose">X</span>
       </div>
+      <slot></slot>
     </div>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "modal",
-        props:{
-         width:'',
-         title:''
-        },
-        data(){
-          return {
-            maskFlag:false,
+  export default {
+    name: "modal",
+    props:{
+      width:'',
+      title:''
+    },
+    data(){
+      return {
+        maskFlag:false,
 
-          }
-        },
-        methods:{
-          onClose(){
-            this.maskFlag = !this.maskFlag;
-          }
+      }
+    },
+    methods:{
+      onClose(){
+        this.maskFlag = !this.maskFlag;
+      }
 
-        }
     }
+  }
 </script>
 
 <style scoped lang="scss">
