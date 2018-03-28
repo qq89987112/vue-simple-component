@@ -244,13 +244,15 @@ export default {
         }
       },
       el.mouseup = (e) => {
-        isMove = false;
-        startX = 0;
-        startY = 0;
-        // el.style.transition = `transform .3s`
-        // el.style.transform = `translate3d(0,0,0)`;
-        // 主动对z-index恢复为原来的值，本指令不做赋值
-        emiiter.$emit('moveEnd', e);
+        if (isMove) {
+          isMove = false;
+          startX = 0;
+          startY = 0;
+          // el.style.transition = `transform .3s`
+          // el.style.transform = `translate3d(0,0,0)`;
+          // 主动对z-index恢复为原来的值，本指令不做赋值
+          emiiter.$emit('moveEnd', e);
+        }
       };
     el.addEventListener('mousedown', el.mousedown)
     document.addEventListener('mousemove', el.mousemove)
