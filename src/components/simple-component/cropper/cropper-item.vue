@@ -1,7 +1,9 @@
 <template>
   <!--style加在这里是为了能用来判断 scrollHeight>offsetHeight-->
   <div class="cropper-item-component" v-moveable.absolute ref="component">
-    <div class="cropper-area"></div>
+    <div class="cropper-area">
+      <slot></slot>
+    </div>
     <div class="line top" @mousedown.stop="onAdjustBegin('top',$event)"></div>
     <div class="line right" @mousedown.stop="onAdjustBegin('right',$event)"></div>
     <div class="line bottom" @mousedown.stop="onAdjustBegin('bottom',$event)"></div>
@@ -151,6 +153,11 @@
     background-color: rgba(51, 136, 255, .5);
     width: 60px;
     height: 60px;
+
+    .cropper-area{
+      height: 100%;
+      width: 100%;
+    }
 
     .line {
       position: absolute;
