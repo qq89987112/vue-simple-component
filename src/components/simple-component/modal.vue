@@ -1,10 +1,10 @@
 <template>
-    <div class="wrap-modal" v-if="width&&title" :class="maskFlag&&'active'">
+    <div class="wrap-modal" :class="maskFlag&&'active'">
       <div :class="['modal-mask',maskFlag&&'active']" @click="onClose"></div>
       <div class="modal-content" :style="{width:width+'px'}">
         <div class="modal-title">
-          <span>{{title}}</span>
-          <span @click="onClose">X</span>
+          <span v-if="title">{{title}}</span>
+          <span class="close" @click="onClose">X</span>
         </div>
         <slot></slot>
       </div>
@@ -35,7 +35,7 @@
 
 <style scoped lang="scss">
   .wrap-modal{
-    position: absolute;
+    position: fixed;
     left:0;
     top:0;
     right:0;
@@ -60,15 +60,15 @@
       position: absolute;
       left:50%;
       top:50%;
-      padding: 20px;
+      padding: 10px;
       background: #fff;
       border-radius: 4px;
       transform: translate(-50%,-50%);
       .modal-title{
-        display: flex;
-        justify-content: space-between;
-        span{
+        overflow: hidden;
+        .close{
           cursor: pointer;
+          float: right;
         }
       }
     }
