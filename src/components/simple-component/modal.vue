@@ -41,6 +41,7 @@
     right:0;
     bottom:0;
     display: none;
+    z-index: 99;
     &.active{
       display: block;
     }
