@@ -5,9 +5,6 @@ let
   startDragElement;
 
 
-
-
-
 // onMoveBegin(index, e) {
 //   let elementList = this.$refs.baseManager.map(i => i.$el);
 //   let dragElement = e.target;
@@ -32,18 +29,11 @@ let
 // },
 
 
-
-
-
-
-
-
-
 // 暂时存在的问题：鼠标滚动有瑕疵
 
 
 export function applyConfigList(dataSourceList, configList) {
-  return configList.map(i=>dataSourceList[i]);
+  return configList.map(i => dataSourceList[i]);
 }
 
 export function insert(arr, src, dest) {
@@ -51,11 +41,11 @@ export function insert(arr, src, dest) {
 
   // insert
 
-  if(src>dest){
+  if (src > dest) {
     tempArr.splice(dest, 0, tempArr.splice(src, 1)[0])
-  }else {
-    tempArr.splice(dest+1,0,tempArr[src]);
-    tempArr.splice(src,1);
+  } else {
+    tempArr.splice(dest + 1, 0, tempArr[src]);
+    tempArr.splice(src, 1);
   }
 
 
@@ -80,25 +70,25 @@ export function stopAnimation(elementList, dragElement) {
 
   return new Promise((resolve, reject) => {
     let
-      configList = dragElement&&dragElement.configList;
+      configList = dragElement && dragElement.configList;
     if (configList) {
       let
         originIndex = elementList.findIndex(i => i === dragElement),
         index = configList.findIndex(i => i === originIndex),
         a, b, height,
-        arr = insert(elementList,originIndex,index);
+        arr = insert(elementList, originIndex, index);
 
 
-      if(originIndex>=0 && index>=0){
+      if (originIndex >= 0 && index >= 0) {
         if (originIndex < index) {
           a = originIndex;
           b = index;
         } else {
-          a = index +1;
-          b = originIndex+1;
+          a = index + 1;
+          b = originIndex + 1;
         }
-        height = arr.slice(a,b).reduce((prev, cur) => {
-          return prev + ((cur&&cur.offsetHeight)||0)
+        height = arr.slice(a, b).reduce((prev, cur) => {
+          return prev + ((cur && cur.offsetHeight) || 0)
         }, 0);
 
         dragElement.style.transition = `transform .3s`;
@@ -108,7 +98,7 @@ export function stopAnimation(elementList, dragElement) {
         setTimeout(() => {
           resolve(configList);
         }, 300)
-      }else if(startDragElement){
+      } else if (startDragElement) {
         //  归位要是要归位的。
         startDragElement.style.transition = `transform .3s`;
         startDragElement.style.transform = `translate3d(0,0,0)`
@@ -127,7 +117,7 @@ export function playAnimation(elementList, dragElement) {
     dragIndex = elementList.findIndex(i => i === dragElement);
   if (!isAnimation) {
     elementList.find((item, index) => {
-      if (item === dragElement || !(item&&dragElement)) {
+      if (item === dragElement || !(item && dragElement)) {
         return;
       }
       //  它两顶底的距离 要是 <= 它两最高的那一个,就算是重叠了。
@@ -144,7 +134,7 @@ export function playAnimation(elementList, dragElement) {
       // height = dragElement.offsetHeight > item.offsetHeight ? dragElement.offsetHeight : item.offsetHeight;
       // console.log(bottom, top, height,bottom-top);
       // 同样的元素,总会相差那几像素,补上！
-      if (bottom - top <= height+5) {
+      if (bottom - top <= height + 5) {
         overlapIndex = index;
       }
       return overlapIndex !== -1;
@@ -156,7 +146,7 @@ export function playAnimation(elementList, dragElement) {
       let
         configOverlapIndex = configList.findIndex(i => i === overlapIndex),
         configDragIndex = configList.findIndex(i => i === dragIndex);
-      dragElement.configList = insert(configList, configDragIndex,configOverlapIndex );
+      dragElement.configList = insert(configList, configDragIndex, configOverlapIndex);
       applyAnimation(elementList, dragElement);
     }
     lastOverlapIndex = overlapIndex;
@@ -188,6 +178,8 @@ export default {
     el.removeEventListener('mouseup', el.mouseup)
   },
   inserted(el, binding, vNode, oldVNode) {
+    let absolute = binding.modifiers.absolute;
+
     // .base-component{
     //     position: relative;
     //   &:before{
@@ -201,7 +193,7 @@ export default {
     //       z-index: 9999;
     //     }
     //   }
-    el.style.transform = `translate3d(0,0,0)`;
+
     let
       startX = 0,
       startY = 0,
@@ -211,14 +203,27 @@ export default {
     let emiiter = vNode.componentInstance || vNode.context;
     el.mousedown = (e) => {
       el.style.transition = `none`
-      startX = e.clientX;
-      startY = e.clientY;
+
+
+      if (absolute) {
+        let
+          left = parseInt(el.style.left) || 0,
+          top = parseInt(el.style.top) || 0;
+
+        startX = e.clientX - left;
+        startY = e.clientY - top;
+      } else {
+        startX = e.clientX;
+        startY = e.clientY;
+      }
+
+
       isMove = true;
       let currentTarget = e.currentTarget;
       let target = e.target;
-      emitBegin = ()=>{
+      emitBegin = () => {
         // 主动对z-index赋值为更高，本指令不做赋值
-        emiiter.$emit('moveBegin', {...e,currentTarget,target});
+        emiiter.$emit('moveBegin', {...e, currentTarget, target});
       };
     },
       el.mousemove = (e) => {
@@ -227,7 +232,14 @@ export default {
             emitBegin();
             emitBegin = null;
           }
-          el.style.transform = `translate3d(${e.clientX - startX}px,${e.clientY - startY}px,0)`;
+
+          if (absolute) {
+            el.style.left = `${e.clientX - startX }px`;
+            el.style.top = `${e.clientY - startY }px`;
+          } else {
+            el.style.transform = `translate3d(${e.clientX - startX}px,${e.clientY - startY}px,0)`;
+          }
+
           emiiter.$emit('move', e);
         }
       },
