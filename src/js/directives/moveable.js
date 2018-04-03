@@ -199,7 +199,8 @@ export default {
       startX = 0,
       startY = 0,
       isMove = false,
-      emitBegin = null;
+      emitBegin = null,
+      scrollTop;
 
     let emiiter = vNode.componentInstance || vNode.context;
     el.mousedown = (e) => {
@@ -214,11 +215,11 @@ export default {
         startX = e.clientX - left;
         startY = e.clientY - top;
       } else {
-        startX = e.clientX;
-        startY = e.clientY;
+        startX = e.pageX;
+        startY = e.pageY;
       }
 
-
+      scrollTop = document.body.scrollTop;
       isMove = true;
       let currentTarget = e.currentTarget;
       let target = e.target;
@@ -226,38 +227,58 @@ export default {
         // 主动对z-index赋值为更高，本指令不做赋值
         emiiter.$emit('moveBegin', {...e, currentTarget, target});
       };
-    },
-      el.mousemove = (e) => {
-        if (isMove) {
-          if (emitBegin) {
-            emitBegin();
-            emitBegin = null;
-          }
-
-          if (absolute) {
-            el.style.left = `${e.clientX - startX }px`;
-            el.style.top = `${e.clientY - startY }px`;
-          } else {
-            el.style.transform = `translate3d(${e.clientX - startX}px,${e.clientY - startY}px,0)`;
-          }
-
-          emiiter.$emit('move', e);
+    };
+    el.mousemove = (e) => {
+      if (isMove) {
+        if (emitBegin) {
+          emitBegin();
+          emitBegin = null;
         }
-      },
-      el.mouseup = (e) => {
-        if (isMove) {
-          isMove = false;
-          startX = 0;
-          startY = 0;
-          // el.style.transition = `transform .3s`
-          // el.style.transform = `translate3d(0,0,0)`;
-          // 主动对z-index恢复为原来的值，本指令不做赋值
-          emiiter.$emit('moveEnd', e);
+
+        if (absolute) {
+          el.style.left = `${e.pageX - startX }px`;
+          el.style.top = `${e.pageY - startY }px`;
+        } else {
+          el.style.transform = `translate3d(${e.pageX - startX}px,${e.pageY - startY}px,0)`;
         }
-      };
+
+        emiiter.$emit('move', e);
+      }
+    };
+    el.mouseup = (e) => {
+      if (isMove) {
+        isMove = false;
+        startX = 0;
+        startY = 0;
+        // el.style.transition = `transform .3s`
+        // el.style.transform = `translate3d(0,0,0)`;
+        // 主动对z-index恢复为原来的值，本指令不做赋值
+        emiiter.$emit('moveEnd', e);
+      }
+    };
+    el.onDocumentScroll = e => {
+      if (isMove) {
+        //translate3d(18px, 72px, 0px)
+        // console.log(el.style.transform);
+        let result = /translate3d\((.+)\)/.exec(el.style.transform);
+        let
+          deltaScrolltop = document.body.scrollTop - scrollTop,
+          transformY = deltaScrolltop,
+          transformX = 0;
+        if (result) {
+          result = result[1].split(",");
+          transformX = parseInt(result[0]) || 0;
+          // console.log(deltaScrolltop, parseInt(result[1]) || 0);
+          transformY = transformY + parseInt(result[1]) || 0;
+        }
+        scrollTop = document.body.scrollTop;
+        el.style.transform = `translate3d(${transformX}px,${transformY}px,0)`;
+      }
+    };
     el.addEventListener('mousedown', el.mousedown)
     document.addEventListener('mousemove', el.mousemove)
     document.addEventListener('mouseup', el.mouseup)
+    document.addEventListener('scroll', el.onDocumentScroll)
     el.addEventListener('mouseup', el.mouseup)
   }
 }
