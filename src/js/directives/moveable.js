@@ -4,24 +4,25 @@ let
   lastOverlapIndex,
   startDragElement;
 
-
+//
+// 如果不起作用，请确保 三个参数的父子关系。
+//
 // onMoveBegin(index, e) {
-//   let elementList = this.$refs.baseManager.map(i => i.$el);
-//   let dragElement = e.target;
-//   startAnimation(elementList, dragElement.parentElement);
+//   let elementList = this.$refs.baseManager.map(i => i.$refs.component.$el);
+//   this.dragElement = e.target;
+//   startAnimation(elementList, this.dragElement);
 // },
 // onMove(index, e) {
-//   let elementList = this.$refs.baseManager.map(i => i.$el);
-//   let dragElement = e.target;
-//   playAnimation(elementList, dragElement.parentElement);
+//   let elementList = this.$refs.baseManager.map(i => i.$refs.component.$el);
+//   playAnimation(elementList, this.dragElement);
 //
 // },
 // onMoveEnd(index, e) {
-//   let elementList = this.$refs.baseManager.map(i => i.$el);
-//   let dragElement = e.target;
-//   stopAnimation(elementList,dragElement.parentElement).then((configList) => {
+//   let elementList = this.$refs.baseManager.map(i => i.$refs.component.$el);
+//   stopAnimation(elementList,this.dragElement).then((configList) => {
 //     let compoents = this.components;
 //     this.components = [];
+//     this.dragElement = null;
 //     this.$nextTick(() => {
 //       this.components = applyConfigList(compoents,configList);
 //     })
