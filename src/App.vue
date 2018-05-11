@@ -33,9 +33,5 @@ export default {
 <style rel="stylesheet/scss" lang="scss">
 #app {
   text-align: center;
-  .button{
-    padding:5px 10px;
-    background-color: #4591d4;
-  }
 }
 </style>
