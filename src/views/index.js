@@ -8,6 +8,7 @@ import calendar from "./calendar.vue"
 import validator from "./validator.vue"
 import slideDelete from "./slideDelete.vue"
 import ripple from "./ripple.vue"
+import empty from "./empty-block.vue"
 
 Vue.use(Router);
 
@@ -54,6 +55,11 @@ let router = new Router({
       path: '/ripple',
       name: 'ripple',
       component: ripple
+    },
+    {
+      path: '/empty',
+      name: 'empty',
+      component: empty
     }
   ]
 });

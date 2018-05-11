@@ -7,6 +7,7 @@
         <router-link to="calendar">calendar</router-link>
         <router-link to="slideDelete">slideDelete</router-link>
         <router-link to="ripple">ripple</router-link>
+        <router-link to="empty">empty</router-link>
     </div>
 </template>
 <script>
