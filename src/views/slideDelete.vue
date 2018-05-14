@@ -8,7 +8,7 @@
 </template>
 
 <script>
-    import Slide from "../components/simple-component/slide";
+    import Slide from "../components/slide";
 
     export default {
       components: {Slide},

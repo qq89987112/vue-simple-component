@@ -6,7 +6,7 @@
     </toggle-panel>
 </template>
 <script>
-    import togglePanel from "./simple-component/wrapper/toggle-panel.vue"
+    import togglePanel from "./wrapper/toggle-panel.vue"
     export default {
         name: 'panel',
         data() {

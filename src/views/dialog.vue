@@ -23,7 +23,7 @@
     </div>
 </template>
 <script>
-    import MDialog from "../components/simple-component/dialog/dialog.vue";
+    import MDialog from "../components/dialog/dialog.vue";
 
     export default {
       components: {MDialog},
