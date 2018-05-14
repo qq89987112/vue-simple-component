@@ -7,7 +7,7 @@
   </div>
 </template>
 <script>
-  import MDialog from "../components/simple-component/dialog.vue";
+  import MDialog from "../components/simple-component/dialog/dialog.vue";
   import MCalendar from "../components/simple-component/calendar/calendar.vue";
 
   export default {
