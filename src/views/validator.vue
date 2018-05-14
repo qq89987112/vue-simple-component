@@ -6,7 +6,7 @@
     </div>
 </template>
 <script>
-    import regExp from "../components/plugins/validator/regExp"
+    import regExp from "../js/plugins/validator/regExp"
     import axios from "axios"
     export default {
         name: 'register-page',
