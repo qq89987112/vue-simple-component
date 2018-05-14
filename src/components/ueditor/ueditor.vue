@@ -14,12 +14,13 @@
       });
       ue.addListener("contentChange", (data) => {
         // this.$emit('change',{html:ue.getContent()});
-        this.$emit("input", ue.getContent());
+        this.content = ue.getContent();
+        this.$emit("input", this.content);
       })
     },
     watch:{
       value(value){
-        if (this.isReady) {
+        if (this.isReady&&value!==this.content) {
           this.ue.setContent(value||"");
         }
       }
