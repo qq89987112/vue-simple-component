@@ -18,6 +18,11 @@
         this.$emit("input", this.content);
       })
     },
+    methods:{
+      setWidth(width){
+        this.$el.querySelector(".edui-editor").style.width = `${width}px`;
+      }
+    },
     watch:{
       value(value){
         if (this.isReady&&value!==this.content) {

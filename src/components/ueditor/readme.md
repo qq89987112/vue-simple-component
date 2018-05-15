@@ -9,21 +9,22 @@
 
         <ueditor class="ueditor" ref="ueditor" v-model="html" @ready="onUeditorReady"></ueditor>
 
-
-      onUeditorReady(){
-        let ue = this.$refs.ueditor.ue;
+      onUeditorReady() {
+        let ueditor = this.$refs.ueditor;
+        let ue = ueditor.ue;
         let ele = this.$refs.tree;
-        this.__resize__ =  () =>{
-          // let body = document.body || document.documentElement;
-          ue.setHeight(ele.offsetHeight-60)
+        let body = document.body || document.documentElement;
+        this.__resize__ = () => {
+          ue.setHeight(ele.offsetHeight - 60);
+          ueditor.setWidth(body.offsetWidth-ele.offsetWidth);
         };
         this.__resize__();
-        window.addEventListener("resize",this.__resize__)
+        window.addEventListener("resize", this.__resize__)
       },
     },
     created() {
       this.reLoad();
     },
-    destroyed(){
-      window.removeEventListener("resize",this.__resize__)
+    destroyed() {
+      window.removeEventListener("resize", this.__resize__)
     }
