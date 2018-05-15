@@ -7,6 +7,12 @@ export default {
     };
 
 
+    Vue.prototype.$sccuess = function (message) {
+      this.$notify.sccuess({
+        message
+      });
+    };
+
     Vue.prototype.$wrapLoad = function (target, promise) {
       this.target = true;
       return promise.finally(() => this.target = false);
@@ -20,7 +26,11 @@ export default {
     Vue.prototype.$loadTarget = function (target) {
       let
         __loadings__ = this.__loadings__ || new Set();
-      let handle = this.$loading({target: target});
+      let handle = this.$loading({
+        target: target,
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.1)'
+      });
       let originCloe = handle.close.bind(handle);
       handle.close = (...params) => {
         __loadings__.delete(target);
