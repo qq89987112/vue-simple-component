@@ -9,7 +9,7 @@
       var ue = this.ue = UE.getEditor('container');
       ue.addListener('ready', () => {
         this.isReady = true;
-        this.ue.setContent(this.value);
+        this.ue.setContent(this.value||"");
         this.$emit('ready')
       });
       ue.addListener("contentChange", (data) => {

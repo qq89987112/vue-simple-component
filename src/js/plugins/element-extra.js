@@ -38,7 +38,6 @@ export default {
       };
       __loadings__.add(target);
       this.__is_loading__ = __loadings__;
-
       return handle;
     }
 
