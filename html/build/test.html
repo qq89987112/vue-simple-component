@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/bundle.css">
+    <style lang="scss">
+        div{
+            p{
+                color: red;
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <p>{{message}}</p>
+</div>
+
+<script src="../js/bundle.js"></script>
+<script type="text/javascript" charset="utf-8">
+    new Vue({
+        el:'#app',
+        data(){
+            return {
+                message:"html + css + js 是写在同一个文件中，利用抽取插件进行抽取和发布。"
+            }
+        },
+        mounted(){
+        }
+    })
+</script>
+</body>
+</html>
