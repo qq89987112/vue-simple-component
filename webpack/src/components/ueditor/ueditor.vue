@@ -29,6 +29,9 @@
           this.ue.setContent(value||"");
         }
       }
+    },
+    destroyed(){
+      this.ue.destroy();
     }
   }
 </script>
