@@ -1,3 +1,13 @@
-.el-dialog__header{
-  display: none
+.el-dialog{
+  margin-top: 0!important;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+
+  .el-dialog__header{
+    display: none
+  }
+  .el-dialog__body{
+    padding: 20px;
+  }
 }
