@@ -3,7 +3,7 @@
 </style>
 
 <template>
-  <el-autocomplete size="mini" v-model="realInputValue" :fetch-suggestions="querySearchAsync" placeholder="请输入内容" @select="handleSelect"></el-autocomplete>
+  <el-autocomplete :trigger-on-focus="false" size="mini" v-model="realInputValue" :fetch-suggestions="querySearchAsync" placeholder="请输入内容" @select="handleSelect"></el-autocomplete>
 </template>
 
 <script>
