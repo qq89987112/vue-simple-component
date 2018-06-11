@@ -28,7 +28,6 @@
 ## 自定义滚动条
     *::-webkit-scrollbar {
       width: 5px;
-      height: 5px;
     }
 
     *::-webkit-scrollbar-thumb {
