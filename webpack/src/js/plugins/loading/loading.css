@@ -1,4 +1,4 @@
-/*loading*/
+/*page-loading*/
 .partLoading {
     position: absolute;
     top: 0;
@@ -71,4 +71,70 @@
         transform: scaleY(1.0);
         -webkit-transform: scaleY(1.0);
     }
+}
+
+
+/* ajax-loading */
+.ajax-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    z-index: 9999;
+    background-color:rgba(0,0,0,0.3);
+    display: none;
+}
+
+.ajax-loading div {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background: transparent;
+	position: absolute;
+	left: 50%;
+    top: 50%;
+	border: 2px solid #fff;
+}
+@-webkit-keyframes ajax-loading {
+	0% {
+		-webkit-transform: translate(-50%,-50%) scale(0.1);
+		opacity: 0.1;
+	}
+	20% {
+		-webkit-transform: translate(-50%,-50%) scale(0.5);
+		opacity: 1;
+	}
+	100% {
+		-webkit-transform: translate(-50%,-50%) scale(0.8);
+		opacity: 0.5;
+	}
+}
+@keyframes ajax-loading {
+	0% {
+		-webkit-transform: translate(-50%,-50%) scale(0.1);
+		opacity: 0.1;
+	}
+	20% {
+		-webkit-transform: translate(-50%,-50%) scale(0.5);
+		opacity: 1;
+	}
+	100% {
+		-webkit-transform: translate(-50%,-50%) scale(0.8);
+		opacity: 0.5;
+	}
+}
+
+.ajax-loading div:nth-child(1) {
+	-webkit-animation: ajax-loading 0.8s -0.24s infinite cubic-bezier(0.21, 0.53, 0.56, 0.8);
+	animation: ajax-loading 0.8s -0.24s infinite cubic-bezier(0.21, 0.53, 0.56, 0.8);
+}
+.ajax-loading div:nth-child(2) {
+	-webkit-animation: ajax-loading 0.8s -0.12s infinite cubic-bezier(0.21, 0.53, 0.56, 0.8);
+	animation: ajax-loading 0.8s -0.12s infinite cubic-bezier(0.21, 0.53, 0.56, 0.8);
+}
+.ajax-loading div:nth-child(3) {
+	-webkit-animation: ajax-loading 0.8s 0s infinite cubic-bezier(0.21, 0.53, 0.56, 0.8);
+	animation: ajax-loading 0.8s 0s infinite cubic-bezier(0.21, 0.53, 0.56, 0.8);
 }
