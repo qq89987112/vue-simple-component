@@ -25,33 +25,12 @@ h1,h2,h3,.el-table{
   margin-top: 0 !important;
 }
 
-
-.side{
-
-  &.active{
-    padding-left: 200px;
-    .el-menu-item{
-      transform: translate3d(0,0,0)  rotate(0deg)!important;
-    }
-
-    ul.el-menu{
-      background-color: #545c64 !important;
-    }
-  }
-
-  .el-menu{
-    background-color:transparent !important;
-    transition: all .6s ease;
-  
-    .el-menu-item{
-      background-color: transparent !important;
-    }
-  
-    @for $i from 0 to 20{
-      .el-menu-item:nth-of-type(#{$i}){
-        transform: translate3d(-100%,0,0) rotate(180deg);
-        transition: all .3s+0.1s*$i ease;
-      }
+// dialog里嵌套upload
+.el-dialog{
+  .el-upload{
+    width: 100%;
+    .el-upload-dragger{
+      width: auto;
     }
   }
 }

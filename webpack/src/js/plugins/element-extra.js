@@ -46,7 +46,7 @@ export default {
           return this.$formCheckContext(params,this);
       }
 
-    Vue.prototype.$sccuess = function (message) {
+    Vue.prototype.$success = function (message) {
       this.$notify({
         message,
         type: 'success'
