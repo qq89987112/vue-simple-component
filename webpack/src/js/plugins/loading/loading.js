@@ -57,7 +57,5 @@ export default {
       if(!loading){return}
       loading.style.display="none";
     };
-
-
   }
 }
