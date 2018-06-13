@@ -43,7 +43,7 @@ if(process.env.NODE_ENV==='development'){
                     data = Object.entries(definedData).reduce((total,cur)=>{
                         let 
                             value1 = JSON.stringify(cur[1]),
-                            value2 = JSON.stringify(lastDefinedData[cur[0]]);
+                            value2 = lastDefinedData ? JSON.stringify(lastDefinedData[cur[0]]) : undefined;
                         if(value1===value2){
                             total[cur[0]] = data[cur[0]];
                         }else{
