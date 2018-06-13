@@ -1,68 +1,28 @@
-import loading from "./loading.vue"
-
-
-/**
- *
- *        <loading class="list-content" ref="loading">
-              <kaddress v-on="$listeners" v-for="item,index in addresses" :key="index" :address="item" :class="{active:curaddress==index}" @click.native="curaddress=index;"></kaddress>
-          </loading>
- *
- *    mounted() {
-      this.loadAddresses().then(this.$cancel("loading"));
-    },
- */
-
-function check(ref,index) {
-  let $ref = this.$refs[ref];
-  if(!$ref) { console.error("请确保在mounted后使用 以及 ref正确"); return null; }
-  if($ref instanceof Array){
-    if(!index instanceof Number){ console.error("在for循环中记得传入index。"); return null; }
-    $ref = $ref[index];
-    if(!$ref){ console.error("index溢出"); return null;}
-  }
-  return $ref;
-}
 
 export default {
   install(Vue, options){
-    Vue.component("loading",loading);
+    const closeLoading = ()=>{
+        var loading=document.getElementById("loading");
+        if(!loading){return}
+        loading.style.display="none";
+    };
 
-    Vue.prototype.$cancelEx = function(ref,index){
-      return ()=> {
-          this.$cancel(ref,index);
+    window.addEventListener("load",closeLoading)
+
+    Vue.prototype.$showLoading = ()=>{
+      var loading=document.getElementById("loading");
+      if(loading){
+        loading.style.display="block";
+        return;
       }
-    };
-
-    Vue.prototype.$cancel = function(ref,index){
-      let $ref = check.bind(this)(ref,index);
-      $ref&&$ref.cancel();
-    };
-
-    Vue.prototype.$isLoading = function(ref,index){
-      let $ref = check.bind(this)(ref,index);
-      return $ref&&$ref.isLoading();
-    };
-
-    Vue.prototype.$loadEx = function(ref,index){
-      return ()=> {
-        return this.$load(ref,index);
-      }
-    };
-
-    Vue.prototype.$load = function(ref, index){
-      this.$nextTick(()=>{
-          let $ref = check.bind(this)(ref,index);
-          $ref&&$ref.do();
-      })
-      return this.$cancelEx(ref,index)
+      var html='<div class="spinner"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div>'
+      var node=document.createElement("div");
+      node.innerHTML=html;
+      node.setAttribute("id","loading");
+      node.setAttribute("class","partLoading");
+      document.body.appendChild(node);
     }
 
-    Vue.prototype.$loadMask = function(ref, index){
-      this.$nextTick(()=>{
-        let $ref = check.bind(this)(ref,index);
-        $ref&&$ref.loadMask();
-      });
-      return this.$cancelEx(ref,index)
-    }
+    Vue.prototype.$closeLoading = closeLoading;
   }
 }
