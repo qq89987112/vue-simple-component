@@ -37,7 +37,7 @@ if(process.env.NODE_ENV==='development'){
                     dataGetter = this.$options.data;
                     data = data.data;
 
-                    definedData = dataGetter instanceof Function ? dataGetter() : dataGetter || {};
+                    definedData = dataGetter instanceof Function ? dataGetter.bind(this)() : dataGetter || {};
                     
 
                     data = Object.entries(definedData).reduce((total,cur)=>{
@@ -72,7 +72,7 @@ if(process.env.NODE_ENV==='development'){
             // 此刻拿到的数据已经为空{}
             window.addEventListener("beforeunload",this.__keepData)
         },
-        destroyed(){
+        beforeDestroy(){
             window.removeEventListener("beforeunload",this.__keepData)
             this.__keepData();
         }
