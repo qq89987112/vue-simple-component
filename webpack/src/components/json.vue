@@ -11,27 +11,30 @@ export default {
     props:['value'],
     data(){
         return {
-            treeData:[]
+            treeData:this.conver(this.value||{})
+        }
+    },
+    methods:{
+        setObj(obj={}){
+           this.treeData = this.conver(obj);
+        },
+        conver(obj){
+            return Object.entries(obj).map(i=>{
+                let [key,value] = i,isObject = typeof value === 'object';
+                if(isObject){
+                    value = conver(value||{});
+                }
+                return {
+                    label:isObject?key:`${key}:${value}`,
+                    children:isObject?value:[]
+                }
+            })
         }
     },
     watch:{
         value(value){
             let obj = value || {};
-
-            function conver(obj){
-                return Object.entries(obj).map(i=>{
-                    let [key,value] = i,isObject = typeof value === 'object';
-                    if(isObject){
-                        value = conver(value||{});
-                    }
-                    return {
-                        label:isObject?key:`${key}:${value}`,
-                        children:isObject?value:[]
-                    }
-                })
-            }
-
-            this.treeData = conver(obj);
+            this.treeData = this.conver(obj);
         }
     }
 }
