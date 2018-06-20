@@ -1,9 +1,11 @@
 <template>
   <div @touchstart="onStart" @touchmove="onMove" @touchend="onEnd" class="slide-box" @click="onOutSideClick">
-    <div class="slide" :class="[{active:isActive}]" ref="slide" :style="slideStyle" @click.stop>
+    <div class="slide-content" @click.capture="onContentClick" ref="slideContent" :style="slideStyle">
+      <slot></slot>
+    </div>
+    <div class="slide" ref="slide" :class="[{active:isActive}]" @click.stop>
       <slot name="slide"></slot>
     </div>
-    <slot></slot>
   </div>
 </template>
 
@@ -14,104 +16,119 @@
     data() {
       this.distance = 20;
       return {
-        isActive: false,
-        slideWidth:undefined,
-        slideMarginRight:undefined
+        isActive:false,
+        slideWidth: undefined,
+        touchState:'end'
       }
     },
-    computed:{
-      slideStyle(){
+    computed: {
+      slideStyle() {
         return {
-          transition: this.slideMarginRight === undefined&&this.slideWidth!==undefined&&'margin-right 0.3s cubic-bezier(0.08, 0.29, 0.31, 1.23)',
-          marginRight:`${this.slideMarginRight === undefined ? -this.slideWidth : this.slideMarginRight}px`
+          transition: this.touchState === 'end'&&'right 0.3s cubic-bezier(0.08, 0.29, 0.31, 1.23)',
+          right: `${this.slideWidth||0}px`
         }
       },
     },
     methods: {
-      hideSide(){
-        this.isActive = false;
+      onContentClick(){
+        if(this.slideWidth){
+          this.slideWidth = 0;
+        }else{
+          this.$emit("click");
+        }
       },
-      onOutSideClick(){
+      hideSide() {
+        this.slideWidth = 0;
+      },
+      onOutSideClick() {
         this.hideSide();
       },
       onStart(e) {
         this.shouldMove = {
           startX: e.touches[0].clientX,
           startY: e.touches[0].clientY,
-          marginRight:parseInt(this.$refs.slide.style.marginRight)
+          startSlideWidth: parseInt(this.$refs.slideContent.style.right)
         };
+        this.touchState = "start";
+        this.isActive = false;
       },
       onMove(e) {
         let
           shouldMove = this.shouldMove;
-          if (shouldMove) {
-            let
-              touch = e.touches[0],
-              mr = shouldMove.startX - touch.clientX,
-              marginRight = shouldMove.marginRight,
-              slideMarginRight;
-
-              this.lastTouch = touch;
-
-              if (mr > 0) {
-                //  从右往左
-                slideMarginRight = marginRight + mr;
-              }else{
-                slideMarginRight = marginRight  -mr;
-              }
-
-              if(slideMarginRight>0){
-                slideMarginRight = 0;
-              }else if(slideMarginRight<-this.slideWidth){
-                slideMarginRight = -this.slideWidth;
-              }
-
-              this.slideMarginRight = slideMarginRight;
+          this.isActive = false;
+        if (shouldMove) {
+          let
+            touch = e.touches[0],
+            mr = shouldMove.startX - touch.clientX,
+            startSlideWidth = shouldMove.startSlideWidth,
+            slideWidth;
+          this.lastTouch = touch;
+          this.touchState = 'move';
+          if (mr > 0) {
+            //  从右往左
+          } else {
+            //  从左往右
           }
+         
+          slideWidth = startSlideWidth + mr;
+          if (slideWidth > this.slideEleWidth) {
+            slideWidth = shouldMove.lastSlideWidth;
+          }else if(slideWidth<0){
+            slideWidth = 0;
+          }
+           
+          this.slideWidth = shouldMove.lastSlideWidth = slideWidth;
+        }
       },
       onEnd(e) {
         let
           shouldMove = this.shouldMove,
           distance = this.distance,
           touch = this.lastTouch;
-
-          this.slideMarginRight = undefined;
-
-          if (shouldMove&&touch) {
-            let mr = shouldMove.startX - touch.clientX;
-
-            if (mr > distance) {
-              //  从右往左
-              this.isActive = true;
-            } else if (mr < -distance) {
-              // 从左往右
-              this.isActive = false;
-            }
+        if (this.touchState === 'move' && touch) {
+          let mr = shouldMove.startX - touch.clientX;
+          if (mr > distance) {
+            //  从右往左
+            this.slideWidth = this.slideEleWidth;
+          } else{
+            this.slideWidth = 0;
           }
-
-          this.shouldMove = undefined;
+        }
+        this.touchState = 'end';
+        this.shouldMove = undefined;
+        setTimeout(()=>{
+          this.isActive = !!this.slideWidth;
+        },300)
       },
     },
     mounted() {
       let slide = this.$refs.slide;
-      slide.style.marginRight = `${-slide.offsetWidth}px`;
-      this.slideWidth = slide.offsetWidth;
+      this.slideEleWidth = slide.offsetWidth;
     }
   }
 </script>
 
 <style scoped lang="scss" rel="stylesheet/scss">
-  .slide-box{
+  .slide-box {
     overflow-x: hidden;
-    .slide {
-      display: inline-block;
-      float: right;
-      z-index: 999;
+    white-space: nowrap;
+    position: relative;
+    .slide-content {
+      width: 100%;
+      background: white;
       position: relative;
+      right: 0px;
+    }
+    .slide {
+      z-index: -1;
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
       &.active {
         margin-right: 0!important;
+        z-index: 2;
       }
     }
   }
-
 </style>

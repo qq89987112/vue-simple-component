@@ -19,5 +19,7 @@
 <style scoped>
 .delete-box{
   width: 100px;
+  background-color: #ee5544;
+  color: white;
 }
 </style>
