@@ -1,9 +1,9 @@
 <template>
-  <div @touchstart="onStart" @touchmove="onMove" @touchend="onEnd" class="slide-box" @click="onOutSideClick">
-    <div class="slide-content" @click.capture="onContentClick" ref="slideContent" :style="slideStyle">
+  <div class="slide-box">
+    <div  @touchstart="onStart" @touchmove="onMove" @touchend="onEnd" class="slide-content" @click.capture="onContentClick" ref="slideContent" :style="slideStyle">
       <slot></slot>
     </div>
-    <div class="slide" ref="slide" :class="[{active:isActive}]" @click.stop>
+    <div class="slide" ref="slide" :class="[{active:isActive}]" @click.stop="onSlideClick">
       <slot name="slide"></slot>
     </div>
   </div>
@@ -30,9 +30,12 @@
       },
     },
     methods: {
+      onSlideClick(){
+        console.log("onSlideClick");
+      },
       onContentClick(){
         if(this.slideWidth){
-          this.slideWidth = 0;
+          this.hideSide();
         }else{
           this.$emit("click");
         }
@@ -40,10 +43,8 @@
       hideSide() {
         this.slideWidth = 0;
       },
-      onOutSideClick() {
-        this.hideSide();
-      },
       onStart(e) {
+        console.log("onStart"); 
         this.shouldMove = {
           startX: e.touches[0].clientX,
           startY: e.touches[0].clientY,
@@ -53,6 +54,7 @@
         this.isActive = false;
       },
       onMove(e) {
+        console.log("onMove"); 
         let
           shouldMove = this.shouldMove;
           this.isActive = false;
@@ -81,6 +83,7 @@
         }
       },
       onEnd(e) {
+        console.log("onEnd"); 
         let
           shouldMove = this.shouldMove,
           distance = this.distance,
@@ -126,8 +129,7 @@
       top: 0;
       bottom: 0;
       &.active {
-        margin-right: 0!important;
-        z-index: 2;
+        z-index: 20 !important;
       }
     }
   }
